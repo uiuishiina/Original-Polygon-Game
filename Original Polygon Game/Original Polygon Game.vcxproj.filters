@@ -13,5 +13,14 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Entry">
+      <UniqueIdentifier>{fc57b560-6a20-4059-be29-22a517bd9039}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window">
+      <UniqueIdentifier>{878305aa-f552-4706-8e3c-24328f48646b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX">
+      <UniqueIdentifier>{2d8db9c7-0f21-4689-83dd-5fb2af501c12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
