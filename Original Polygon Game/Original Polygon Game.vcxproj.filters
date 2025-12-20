@@ -23,4 +23,17 @@
       <UniqueIdentifier>{2d8db9c7-0f21-4689-83dd-5fb2af501c12}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Window\Window.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Window\Window.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Entry\Entry.cpp">
+      <Filter>Entry</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>

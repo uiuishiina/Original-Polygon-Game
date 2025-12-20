@@ -124,6 +124,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Window\Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Entry\Entry.cpp" />
+    <ClCompile Include="..\Window\Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
