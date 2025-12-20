@@ -27,6 +27,18 @@
     <ClInclude Include="..\Window\Window.h">
       <Filter>Window</Filter>
     </ClInclude>
+    <ClInclude Include="..\DirectX\DXGI.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\Device.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\SwapChain.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\CommandQueue.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Window\Window.cpp">
@@ -34,6 +46,18 @@
     </ClCompile>
     <ClCompile Include="..\Entry\Entry.cpp">
       <Filter>Entry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\DXGI.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\Device.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\SwapChain.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\CommandQueue.cpp">
+      <Filter>DirectX</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

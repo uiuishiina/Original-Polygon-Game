@@ -124,9 +124,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\DirectX\CommandQueue.h" />
+    <ClInclude Include="..\DirectX\Device.h" />
+    <ClInclude Include="..\DirectX\DXGI.h" />
+    <ClInclude Include="..\DirectX\SwapChain.h" />
     <ClInclude Include="..\Window\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\DirectX\CommandQueue.cpp" />
+    <ClCompile Include="..\DirectX\Device.cpp" />
+    <ClCompile Include="..\DirectX\DXGI.cpp" />
+    <ClCompile Include="..\DirectX\SwapChain.cpp" />
     <ClCompile Include="..\Entry\Entry.cpp" />
     <ClCompile Include="..\Window\Window.cpp" />
   </ItemGroup>

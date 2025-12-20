@@ -4,7 +4,7 @@
 #include<cassert>
 //------  名前空間  -----
 namespace {
-	//ウィンドウプロシージャ
+	//@brief	---  ウィンドウプロシージャ  ---
 	LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		switch (msg) {
 		case WM_DESTROY:
@@ -15,16 +15,17 @@ namespace {
 	}
 }
 
-//ウィンドウ作成関数
+//@brief	---  ウィンドウ作成関数  ---
+//@return	ウィンドウ作成の成否
 [[nodiscard]] bool Window :: Create(HINSTANCE instance, int width, int height, std::string_view name)noexcept {
 
 	//ウィンドウ定義
 	WNDCLASS wc{};
-	wc.lpfnWndProc		= WindowProc;
-	wc.hInstance		= instance;
-	wc.lpszClassName	= name.data();
-	wc.hCursor			= LoadCursor(nullptr, IDC_ARROW);
-	wc.hbrBackground	= (HBRUSH)GetStockObject(BLACK_BRUSH);
+	wc.lpfnWndProc		= WindowProc;							//ウィンドウプロシージャ
+	wc.hInstance		= instance;								//HINSTANCE
+	wc.lpszClassName	= name.data();							//ウィンドウクラス名
+	wc.hCursor			= LoadCursor(nullptr, IDC_ARROW);		//
+	wc.hbrBackground	= (HBRUSH)GetStockObject(BLACK_BRUSH);	//初期ウィンドウ背景
 	//ウィンドウクラス登録
 	RegisterClass(&wc);
 	//ウィンドウ作成
@@ -34,8 +35,8 @@ namespace {
 		WS_OVERLAPPEDWINDOW,//ウィンドウタイプ
 		CW_USEDEFAULT,		//ウィンドウ出現位置x
 		CW_USEDEFAULT,		//ウィンドウ出現位置y
-		width,				//ウィンドウ縦幅
-		height,				//ウィンドウ横幅
+		width,				//ウィンドウ横幅
+		height,				//ウィンドウ縦幅
 		nullptr,			//hWndParent
 		nullptr,			//hMenu
 		instance,			//HINSTANCE
@@ -50,11 +51,12 @@ namespace {
 	ShowWindow(Handle_, SW_SHOW);
 	//ウィンドウ更新
 	UpdateWindow(Handle_);
-
+	Witdh_ = width;
+	Height_ = height;
 	return true;
 }
 
-//メッセージループ関数
+//@brief	---  メッセージループ関数  ---
 [[nodiscard]] bool Window :: MessegeLoop()const noexcept {
 	MSG msg{};
 	while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
@@ -66,4 +68,19 @@ namespace {
 		DispatchMessage(&msg);
 	}
 	return true;
+}
+
+//@brief	---  ウィンドウハンドル取得関数  ---
+//@return	ウィンドウハンドル
+[[nodiscard]] HWND Window :: GetHandle()const noexcept {
+	if (!Handle_) {
+		assert(false && "ウィンドウハンドル未作成");
+	}
+	return Handle_;
+}
+
+//@brief	---  ウィンドウサイズ取得関数  ---
+//@return	ウィンドウサイズ
+[[nodiscard]] std::pair<int, int> Window :: GetSize()const noexcept {
+	return { Witdh_, Height_ };
 }
