@@ -124,16 +124,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\DirectX\CommandAllocator.h" />
+    <ClInclude Include="..\DirectX\CommandList.h" />
     <ClInclude Include="..\DirectX\CommandQueue.h" />
+    <ClInclude Include="..\DirectX\Descriptor_Heap.h" />
     <ClInclude Include="..\DirectX\Device.h" />
     <ClInclude Include="..\DirectX\DXGI.h" />
+    <ClInclude Include="..\DirectX\Fence.h" />
+    <ClInclude Include="..\DirectX\RenderTarget.h" />
     <ClInclude Include="..\DirectX\SwapChain.h" />
     <ClInclude Include="..\Window\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\DirectX\CommandAllocator.cpp" />
+    <ClCompile Include="..\DirectX\CommandList.cpp" />
     <ClCompile Include="..\DirectX\CommandQueue.cpp" />
+    <ClCompile Include="..\DirectX\Descriptor_Heap.cpp" />
     <ClCompile Include="..\DirectX\Device.cpp" />
     <ClCompile Include="..\DirectX\DXGI.cpp" />
+    <ClCompile Include="..\DirectX\Fence.cpp" />
+    <ClCompile Include="..\DirectX\RenderTarget.cpp" />
     <ClCompile Include="..\DirectX\SwapChain.cpp" />
     <ClCompile Include="..\Entry\Entry.cpp" />
     <ClCompile Include="..\Window\Window.cpp" />

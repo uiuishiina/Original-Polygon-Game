@@ -18,20 +18,20 @@ SwapChain :: ~SwapChain() {
 	const auto [w, h] = Window.GetSize();
 
 	//スワップチェインの設定
-	DXGI_SWAP_CHAIN_DESC1 desc{};
-	desc.BufferCount		= 2;
-	desc.Width				= w;
-	desc.Height				= h;
-	desc.Format				= DXGI_FORMAT_R8G8B8A8_UNORM;
-	desc.BufferUsage		= DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	desc.SwapEffect			= DXGI_SWAP_EFFECT_FLIP_DISCARD;
-	desc.SampleDesc.Count	= 1;
+	Desc_ = {};
+	Desc_.BufferCount		= 2;
+	Desc_.Width				= w;
+	Desc_.Height			= h;
+	Desc_.Format			= DXGI_FORMAT_R8G8B8A8_UNORM;
+	Desc_.BufferUsage		= DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	Desc_.SwapEffect		= DXGI_SWAP_EFFECT_FLIP_DISCARD;
+	Desc_.SampleDesc.Count	= 1;
 
 	//一時スワップチェイン作成
 	IDXGISwapChain1* temp{};
 	{
 		const auto hr = DXGI.GetFactory()->CreateSwapChainForHwnd(Queue.Get(), Window.GetHandle(),
-			&desc, nullptr, nullptr, &temp);
+			&Desc_, nullptr, nullptr, &temp);
 		if (FAILED(hr)) {
 			assert(false && "スワップチェイン作成失敗");
 			return false;
@@ -57,4 +57,13 @@ SwapChain :: ~SwapChain() {
 		return nullptr;
 	}
 	return SwapChain_;
+}
+
+//@brief	---  スワップチェイン設定取得  ---
+//@return	スワップチェインの設定
+[[nodiscard]] const DXGI_SWAP_CHAIN_DESC1& SwapChain :: GetDesc()const noexcept {
+	if (!SwapChain_) {
+		assert(false && "スワップチェイン未作成");
+	}
+	return Desc_;
 }
