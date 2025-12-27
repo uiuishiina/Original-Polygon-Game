@@ -8,17 +8,28 @@
 class Device final 
 {
 public:
-	Device() = default;
-	//デストラクタ
-	~Device();
+	//@brief	---  デバイス取得  ---
+	//@return	デバイスインスタンス
+	static Device& Instance() {
+		static Device instance;
+		return instance;
+	}
 
 	//@brief	---  デバイス作成関数  ---
 	//@return	デバイス作成の成否
-	[[nodiscard]] bool Create(const DXGI& DXGI)noexcept;
+	[[nodiscard]] bool Create()noexcept;
 
 	//@brief	---  デバイスポインター取得関数  ---
 	//@return	デバイスポインター
 	[[nodiscard]] ID3D12Device* Get()const noexcept;
+
+	//@brief	---  DXGI取得関数  ---
+	//@return	DXGIインスタンス
+	[[nodiscard]] const DXGI& GetDXGI()const noexcept;
 private:
-	ID3D12Device* Device_{};	//デバイス
+	Device() = default;
+	~Device() = default;
+
+	DXGI DXGI_{};
+	Microsoft::WRL::ComPtr <ID3D12Device> Device_{};	//デバイス
 };

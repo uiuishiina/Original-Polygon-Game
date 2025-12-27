@@ -3,17 +3,10 @@
 #include"SwapChain.h"
 #include<cassert>
 
-//デストラクタ
-SwapChain :: ~SwapChain() {
-	if (SwapChain_) {
-		SwapChain_->Release();
-		SwapChain_ = nullptr;
-	}
-}
 
 //@brief	---  スワップチェイン作成関数  ---
 //@return	スワップチェイン作成可否
-[[nodiscard]] bool SwapChain :: Create(const DXGI& DXGI, const CommandQueue& Queue, const Window& Window)noexcept {
+[[nodiscard]] bool SwapChain :: Create(const CommandQueue& Queue, const Window& Window)noexcept {
 
 	const auto [w, h] = Window.GetSize();
 
@@ -30,7 +23,7 @@ SwapChain :: ~SwapChain() {
 	//一時スワップチェイン作成
 	IDXGISwapChain1* temp{};
 	{
-		const auto hr = DXGI.GetFactory()->CreateSwapChainForHwnd(Queue.Get(), Window.GetHandle(),
+		const auto hr = Device::Instance().GetDXGI().GetFactory()->CreateSwapChainForHwnd(Queue.Get(), Window.GetHandle(),
 			&Desc_, nullptr, nullptr, &temp);
 		if (FAILED(hr)) {
 			assert(false && "スワップチェイン作成失敗");
@@ -56,7 +49,7 @@ SwapChain :: ~SwapChain() {
 		assert(false && "スワップチェイン未作成");
 		return nullptr;
 	}
-	return SwapChain_;
+	return SwapChain_.Get();
 }
 
 //@brief	---  スワップチェイン設定取得  ---

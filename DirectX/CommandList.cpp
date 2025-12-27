@@ -3,25 +3,18 @@
 #include"CommandList.h"
 #include<cassert>
 
-//デストラクタ
-CommandList :: ~CommandList() {
-	if (List_) {
-		List_->Release();
-		List_ = nullptr;
-	}
-}
 
 //@brief	---  コマンドリスト作成関数  ---
 //@return	コマンドリストの作成可否
-[[nodiscard]] bool CommandList :: Create(const Device& Device, const CommandAllocator& Allocator)noexcept {
+[[nodiscard]] bool CommandList :: Create(const CommandAllocator& Allocator)noexcept {
 	
 	//コマンドリスト作成
-	const auto hr = Device.Get()->CreateCommandList(0, Allocator.GetType(), Allocator.Get(), nullptr, IID_PPV_ARGS(&List_));
+	const auto hr = Device::Instance().Get()->CreateCommandList(0, Allocator.GetType(), Allocator.Get(), nullptr, IID_PPV_ARGS(&List_));
 	if (FAILED(hr)) {
 		assert(false && "コマンドリスト作成失敗");
 		return false;
 	}
-	//
+	//コマンドリストクローズ
 	List_->Close();
 	return true;
 }
@@ -42,5 +35,5 @@ void CommandList :: Reset(const CommandAllocator& Allocator)noexcept {
 		assert(false && "コマンドリスト未作成");
 		return nullptr;
 	}
-	return List_;
+	return List_.Get();
 }

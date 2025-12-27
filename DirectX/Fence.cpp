@@ -3,20 +3,13 @@
 #include"Fence.h"
 #include<cassert>
 
-//デストラクタ
-Fence :: ~Fence() {
-	if (Fence_) {
-		Fence_->Release();
-		Fence_ = nullptr;
-	}
-}
 
 //@brief	---  フェンス作成関数  ---
 //@return	フェンスの作成可否
-[[nodiscard]] bool Fence :: Create(const Device& Device)noexcept {
+[[nodiscard]] bool Fence :: Create()noexcept {
 
 	//フェンスの作成
-	const auto hr = Device.Get()->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&Fence_));
+	const auto hr = Device::Instance().Get()->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&Fence_));
 	if (FAILED(hr)) {
 		assert(false && "フェンス作成失敗");
 		return false;
@@ -51,5 +44,5 @@ void Fence :: Wait(UINT64 Value)const noexcept {
 		assert(false && "フェンス未作成");
 		return nullptr;
 	}
-	return Fence_;
+	return Fence_.Get();
 }

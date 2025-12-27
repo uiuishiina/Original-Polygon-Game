@@ -5,18 +5,18 @@
 #pragma comment(lib, "d3d12.lib")
 #pragma comment(lib, "dxguid.lib")
 
-//デストラクタ
-Device :: ~Device() {
-	if (Device_) {
-		Device_->Release();
-		Device_ = nullptr;
-	}
-}
 
 //@brief	---  デバイス作成関数  ---
 //@return	デバイス作成の成否
-[[nodiscard]] bool Device :: Create(const DXGI& DXGI)noexcept {
-	const auto hr = D3D12CreateDevice(DXGI.GetAdaptor(), D3D_FEATURE_LEVEL_12_0, IID_PPV_ARGS(&Device_));
+[[nodiscard]] bool Device :: Create()noexcept {
+
+	//DXGI作成
+	if (!DXGI_.SetDisplayAdapter()) {
+		assert(false && "DXGI作成失敗");
+		return false;
+	}
+
+	const auto hr = D3D12CreateDevice(DXGI_.GetAdaptor(), D3D_FEATURE_LEVEL_12_0, IID_PPV_ARGS(&Device_));
 	if (FAILED(hr)) {
 		assert(false && "デバイス作成失敗");
 		return false;
@@ -31,5 +31,11 @@ Device :: ~Device() {
 		assert(false && "デバイス未作成");
 		return nullptr;
 	}
-	return Device_;
+	return Device_.Get();
+}
+
+//@brief	---  DXGI取得関数  ---
+//@return	DXGIインスタンス
+[[nodiscard]] const DXGI& Device :: GetDXGI()const noexcept {
+	return DXGI_;
 }

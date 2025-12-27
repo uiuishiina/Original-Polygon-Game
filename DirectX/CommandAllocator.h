@@ -8,12 +8,11 @@ class CommandAllocator final
 {
 public:
 	CommandAllocator() = default;
-	//デストラクタ
-	~CommandAllocator();
+	~CommandAllocator() = default;
 
 	//@brief	---  コマンドアロケーター作成関数  ---
 	//@return	コマンドアロケーターの作成可否
-	[[nodiscard]] bool Create(const Device& Device, const D3D12_COMMAND_LIST_TYPE Type)noexcept;
+	[[nodiscard]] bool Create(const D3D12_COMMAND_LIST_TYPE Type)noexcept;
 
 	//@brief	---  コマンドアロケーターリセット関数  ---
 	void Reset()noexcept;
@@ -26,6 +25,6 @@ public:
 	//@return	コマンドリストタイプ
 	[[nodiscard]] D3D12_COMMAND_LIST_TYPE GetType()const noexcept;
 private:
-	ID3D12CommandAllocator* Allocator_{};	//コマンドアロケーター
+	Microsoft::WRL::ComPtr <ID3D12CommandAllocator> Allocator_{};	//コマンドアロケーター
 	D3D12_COMMAND_LIST_TYPE Type_{};		//コマンドリストタイプ
 };

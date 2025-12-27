@@ -13,6 +13,11 @@
 #include"../DirectX/CommandAllocator.h"
 #include"../DirectX/CommandList.h"
 #include"../DirectX/Fence.h"
+#include"../DirectX/RootSignature.h"
+#include"../DirectX/CompileShader.h"
+#include"../DirectX/PiplineState.h"
+//------  Polygon  ------
+#include"../Polygon/Triangle.h"
 //------  名前空間  ------
 namespace {
 	constexpr std::string_view APP_NAME = "MyGame";
@@ -34,61 +39,80 @@ public:
 			return false;
 		}
 
-		//DXGI作成
-		if (!DXGI_.SetDisplayAdapter()) {
-			assert(false && "DXGIの作成に失敗しました(App)");
-			return false;
-		}
-
 		//デバイス作成
-		if (!Device_.Create(DXGI_)) {
+		if (!Device::Instance().Create()) {
 			assert(false && "デバイスの作成に失敗しました(App)");
 			return false;
 		}
 
 		//コマンドキュー作成
-		if (!Queue_.Create(Device_)) {
+		if (!Queue_.Create()) {
 			assert(false && "コマンドキューの作成に失敗しました(App)");
 			return false;
 		}
 
 		//スワップチェイン作成
-		if (!SwapChain_.Create(DXGI_, Queue_, Window_)) {
+		if (!SwapChain_.Create(Queue_, Window_)) {
 			assert(false && "スワップチェインの作成に失敗しました(App)");
 			return false;
 		}
 
 		//ディスクリプターヒープ作成
-		if (!Heap_.Create(Device_, D3D12_DESCRIPTOR_HEAP_TYPE_RTV, SwapChain_.GetDesc().BufferCount)) {
+		if (!Heap_.Create(D3D12_DESCRIPTOR_HEAP_TYPE_RTV, SwapChain_.GetDesc().BufferCount)) {
 			assert(false && "ディスクリプターヒープの作成に失敗しました(App)");
 			return false;
 		}
 
 		//レンダーターゲット作成
-		if (!RenderTarget_.Create(Device_, SwapChain_, Heap_)) {
+		if (!RenderTarget_.Create(SwapChain_, Heap_)) {
 			assert(false && "レンダーターゲットの作成に失敗しました(App)");
 			return false;
 		}
 
 		//コマンドアロケーター作成
 		for (int i = 0; i < 2; i++) {
-			if (!Allocator_[i].Create(Device_, D3D12_COMMAND_LIST_TYPE_DIRECT)) {
+			if (!Allocator_[i].Create(D3D12_COMMAND_LIST_TYPE_DIRECT)) {
 				assert(false && "コマンドアロケーターの作成に失敗しました(App)");
 				return false;
 			}
 		}
 
 		//コマンドリスト作成
-		if (!CommandList_.Create(Device_, Allocator_[0])) {
+		if (!CommandList_.Create(Allocator_[0])) {
 			assert(false && "コマンドリストの作成に失敗しました(App)");
 			return false;
 		}
 
 		//フェンス作成
-		if (!Fence_.Create(Device_)) {
+		if (!Fence_.Create()) {
 			assert(false && "フェンスの作成に失敗しました(App)");
 			return false;
 		}
+
+		//ポリゴン作成
+		if (!Tri_.Create()) {
+			assert(false && "ポリゴンの作成に失敗しました(App)");
+			return false;
+		}
+
+		//ルートシグネチャ作成
+		if (!Root_.Create()) {
+			assert(false && "ルートシグネチャの作成に失敗しました(App)");
+			return false;
+		}
+
+		//シェーダー作成
+		if (!Shader_.Create()) {
+			assert(false && "シェーダーの作成に失敗しました(App)");
+			return false;
+		}
+		
+		//"パイプラインステートオブジェクト作成
+		if (!Pipline_.Create(Shader_, Root_)) {
+			assert(false && "パイプラインステートの作成に失敗しました(App)");
+			return false;
+		}
+
 
 		//アプリケーション作成完了
 		return true;
@@ -114,12 +138,41 @@ public:
 			CommandList_.Get()->ResourceBarrier(1, &PtoRT);
 
 			//レンダーターゲット設定
-			D3D12_CPU_DESCRIPTOR_HANDLE Handles[] = {RenderTarget_.GetHandle(Device_,Heap_,BufferIndex)};
+			D3D12_CPU_DESCRIPTOR_HANDLE Handles[] = {RenderTarget_.GetHandle(Heap_,BufferIndex)};
 			CommandList_.Get()->OMSetRenderTargets(1, Handles, false, nullptr);
 
 			//レンダーターゲットクリア
-			const float Color[] = { 0.0f,0.0f,0.0f,1.0f };
+			const float Color[] = { 1.0f,0.0f,0.0f,1.0f };
 			CommandList_.Get()->ClearRenderTargetView(Handles[0], Color, 0, nullptr);
+
+			//------  描画指示箇所  ------
+			{
+				//
+				CommandList_.Get()->SetPipelineState(Pipline_.Get());
+				//
+				CommandList_.Get()->SetGraphicsRootSignature(Root_.Get());
+
+				// ビューポートの設定
+				const auto [w, h] = Window_.GetSize();
+				D3D12_VIEWPORT viewport{};
+				viewport.TopLeftX = 0.0f;
+				viewport.TopLeftY = 0.0f;
+				viewport.Width = static_cast<float>(w);
+				viewport.Height = static_cast<float>(h);
+				viewport.MinDepth = 0.0f;
+				viewport.MaxDepth = 1.0f;
+				CommandList_.Get()->RSSetViewports(1, &viewport);
+
+				// シザー矩形の設定
+				D3D12_RECT scissorRect{};
+				scissorRect.left = 0;
+				scissorRect.top = 0;
+				scissorRect.right = w;
+				scissorRect.bottom = h;
+				CommandList_.Get()->RSSetScissorRects(1, &scissorRect);
+
+				Tri_.Draw(CommandList_);
+			}
 
 			//リソースバリアー変更
 			auto RTtoP = ResourseBarrier(RenderTarget_.Get(BufferIndex), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
@@ -162,8 +215,6 @@ private:
 	//------  各クラスのインスタンス  ------
 
 	Window				Window_{};		//@brief	ウィンドウインスタンス
-	DXGI				DXGI_{};		//@brief	DXGIインスタンス
-	Device				Device_{};		//@brief	デバイスインスタンス
 	CommandQueue		Queue_{};		//@brief	コマンドキューインスタンス
 	SwapChain			SwapChain_{};	//@brief	スワップチェインインスタンス
 	DescriptorHeap		Heap_{};		//@brief	ディスクリプターヒープインスタンス
@@ -171,7 +222,11 @@ private:
 	CommandAllocator	Allocator_[2]{};//@brief	コマンドアロケーターインスタンス
 	CommandList			CommandList_{};	//@brief	コマンドリストインスタンス
 	Fence				Fence_{};		//@broef	フェンスインスタンス
-
+	RootSignature		Root_{};		//@brief	
+	CompileShader		Shader_{};		//@brief	
+	Pipline				Pipline_{};		//@brief	
+	Troangle			Tri_{};			//@brief
+	
 	UINT64 FenceValue_[2]{};
 	UINT64 NextFenceValue_ = 1;
 };

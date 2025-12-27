@@ -12,19 +12,19 @@ class RenderTarget final
 public:
 	RenderTarget() = default;
 	//デストラクタ
-	~RenderTarget();
+	~RenderTarget() = default;
 
 	//@brief	--- レンダーターゲット作成関数  ---
 	//@return	レンダーターゲットの作成可否
-	[[nodiscard]] bool Create(const Device& Device, const SwapChain& Swap, const DescriptorHeap& Heap)noexcept;
+	[[nodiscard]] bool Create(const SwapChain& Swap, const DescriptorHeap& Heap)noexcept;
 
 	//@brief	---  ディスクリプタハンドル取得関数  ---
 	//@return	ディスクリプタハンドル
-	[[nodiscard]] D3D12_CPU_DESCRIPTOR_HANDLE GetHandle(const Device& Device, const DescriptorHeap& Heap, UINT Index)const noexcept;
+	[[nodiscard]] D3D12_CPU_DESCRIPTOR_HANDLE GetHandle(const DescriptorHeap& Heap, UINT Index)const noexcept;
 
 	//@brief	---  レンダーターゲット取得関数  ---
 	//@return	レンダーターゲットのポインター
 	[[nodiscard]] ID3D12Resource* Get(UINT Index)const noexcept;
 private:
-	std::vector<ID3D12Resource*> Rendertargets_;	//レンダーターゲット
+	std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>> Rendertargets_;	//レンダーターゲット
 };

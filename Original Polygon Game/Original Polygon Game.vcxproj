@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -127,25 +127,35 @@
     <ClInclude Include="..\DirectX\CommandAllocator.h" />
     <ClInclude Include="..\DirectX\CommandList.h" />
     <ClInclude Include="..\DirectX\CommandQueue.h" />
+    <ClInclude Include="..\DirectX\CompileShader.h" />
     <ClInclude Include="..\DirectX\Descriptor_Heap.h" />
     <ClInclude Include="..\DirectX\Device.h" />
     <ClInclude Include="..\DirectX\DXGI.h" />
     <ClInclude Include="..\DirectX\Fence.h" />
+    <ClInclude Include="..\DirectX\PiplineState.h" />
     <ClInclude Include="..\DirectX\RenderTarget.h" />
+    <ClInclude Include="..\DirectX\RootSignature.h" />
     <ClInclude Include="..\DirectX\SwapChain.h" />
+    <ClInclude Include="..\Polygon\Polygon.h" />
+    <ClInclude Include="..\Polygon\Triangle.h" />
     <ClInclude Include="..\Window\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\DirectX\CommandAllocator.cpp" />
     <ClCompile Include="..\DirectX\CommandList.cpp" />
     <ClCompile Include="..\DirectX\CommandQueue.cpp" />
+    <ClCompile Include="..\DirectX\CompileShader.cpp" />
     <ClCompile Include="..\DirectX\Descriptor_Heap.cpp" />
     <ClCompile Include="..\DirectX\Device.cpp" />
     <ClCompile Include="..\DirectX\DXGI.cpp" />
     <ClCompile Include="..\DirectX\Fence.cpp" />
+    <ClCompile Include="..\DirectX\PiplineState.cpp" />
     <ClCompile Include="..\DirectX\RenderTarget.cpp" />
+    <ClCompile Include="..\DirectX\RootSignature.cpp" />
     <ClCompile Include="..\DirectX\SwapChain.cpp" />
     <ClCompile Include="..\Entry\Entry.cpp" />
+    <ClCompile Include="..\Polygon\Polygon.cpp" />
+    <ClCompile Include="..\Polygon\Triangle.cpp" />
     <ClCompile Include="..\Window\Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

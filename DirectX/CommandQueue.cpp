@@ -3,17 +3,9 @@
 #include"CommandQueue.h"
 #include<cassert>
 
-//デストラクタ
-CommandQueue :: ~CommandQueue() {
-	if (CommandQueue_) {
-		CommandQueue_->Release();
-		CommandQueue_ = nullptr;
-	}
-}
-
 //@brief	---  コマンドキュー作成関数  ---
 //@return	コマンドキュー作成の成否
-[[nodiscard]] bool CommandQueue :: Create(const Device& Device)noexcept {
+[[nodiscard]] bool CommandQueue :: Create()noexcept {
 
 	//コマンドキューの設定
 	D3D12_COMMAND_QUEUE_DESC desc{};
@@ -23,7 +15,7 @@ CommandQueue :: ~CommandQueue() {
 	desc.NodeMask	= 0;
 
 	//コマンドキューの作成
-	const auto hr = Device.Get()->CreateCommandQueue(&desc, IID_PPV_ARGS(&CommandQueue_));
+	const auto hr = Device::Instance().Get()->CreateCommandQueue(&desc, IID_PPV_ARGS(&CommandQueue_));
 	if (FAILED(hr)) {
 		assert(false && "コマンドキュー作成失敗");
 		return false;
@@ -38,5 +30,5 @@ CommandQueue :: ~CommandQueue() {
 		assert(false && "コマンドキュー未作成");
 		return nullptr;
 	}
-	return CommandQueue_;
+	return CommandQueue_.Get();
 }

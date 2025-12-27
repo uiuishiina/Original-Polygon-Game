@@ -9,15 +9,15 @@ class CommandQueue final
 public:
 	CommandQueue() = default;
 	//デストラクタ
-	~CommandQueue();
+	~CommandQueue() = default;
 
 	//@brief	---  コマンドキュー作成関数  ---
 	//@return	コマンドキュー作成の成否
-	[[nodiscard]] bool Create(const Device& Device)noexcept;
+	[[nodiscard]] bool Create()noexcept;
 
 	//@brief	---  コマンドキュー取得関数  ---
 	//@return	コマンドキューのポインター
 	[[nodiscard]] ID3D12CommandQueue* Get()const noexcept;
 private:
-	ID3D12CommandQueue* CommandQueue_{};	//コマンドキュー
+	Microsoft::WRL::ComPtr <ID3D12CommandQueue> CommandQueue_{};	//コマンドキュー
 };

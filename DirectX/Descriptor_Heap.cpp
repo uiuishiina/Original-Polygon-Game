@@ -3,17 +3,10 @@
 #include"Descriptor_Heap.h"
 #include<cassert>
 
-//デストラクタ
-DescriptorHeap :: ~DescriptorHeap() {
-	if (Heap_) {
-		Heap_->Release();
-		Heap_ = nullptr;
-	}
-}
 
 //@brief	---  ディスクリプターヒープ作成関数  ---
 //@return	ディスクリプターヒープの作成可否
-[[nodiscard]] bool DescriptorHeap :: Create(const Device& Device, D3D12_DESCRIPTOR_HEAP_TYPE type, UINT numDescriptors, bool shaderVisible)noexcept {
+[[nodiscard]] bool DescriptorHeap :: Create(D3D12_DESCRIPTOR_HEAP_TYPE type, UINT numDescriptors, bool shaderVisible)noexcept {
 
 	//
 	D3D12_DESCRIPTOR_HEAP_DESC desc{};
@@ -23,7 +16,7 @@ DescriptorHeap :: ~DescriptorHeap() {
 
 	Type_ = type;
 
-	const auto hr = Device.Get()->CreateDescriptorHeap(&desc, IID_PPV_ARGS(&Heap_));
+	const auto hr = Device::Instance().Get()->CreateDescriptorHeap(&desc, IID_PPV_ARGS(&Heap_));
 	if (FAILED(hr)) {
 		assert(false && "ディスクリプターヒープ作成失敗");
 		return false;
@@ -38,7 +31,7 @@ DescriptorHeap :: ~DescriptorHeap() {
 		assert(false && "ディスクリプターヒープ未作成");
 		return nullptr;
 	}
-	return Heap_;
+	return Heap_.Get();
 }
 
 //@brief	---  ディスクリプターヒープタイプ取得関数  ---

@@ -3,20 +3,10 @@
 #include"RenderTarget.h"
 #include<cassert>
 
-//デストラクタ
-RenderTarget :: ~RenderTarget() {
-	for (auto& rt : Rendertargets_) {
-		if (rt) {
-			rt->Release();
-			rt = nullptr;
-		}
-	}
-	Rendertargets_.clear();
-}
 
 //@brief	--- レンダーターゲット作成関数  ---
 //@return	レンダーターゲットの作成可否
-[[nodiscard]] bool RenderTarget :: Create(const Device& Device, const SwapChain& Swap, const DescriptorHeap& Heap)noexcept {
+[[nodiscard]] bool RenderTarget :: Create(const SwapChain& Swap, const DescriptorHeap& Heap)noexcept {
 
 	//スワップチェインの設定を取得
 	const auto& desc = Swap.GetDesc();
@@ -35,16 +25,16 @@ RenderTarget :: ~RenderTarget() {
 			return false;
 		}
 		//レンダーターゲットビューを作成しディスクリプターヒープと紐づけ
-		Device.Get()->CreateRenderTargetView(Rendertargets_[i], nullptr, Handle);
+		Device::Instance().Get()->CreateRenderTargetView(Rendertargets_[i].Get(), nullptr, Handle);
 		//ポインターを操作してハンドルを移動
-		Handle.ptr += Device.Get()->GetDescriptorHandleIncrementSize(Type);
+		Handle.ptr += Device::Instance().Get()->GetDescriptorHandleIncrementSize(Type);
 	}
 	return true;
 }
 
 //@brief	---  ディスクリプタハンドル取得関数  ---
 //@return	ディスクリプタハンドル
-[[nodiscard]] D3D12_CPU_DESCRIPTOR_HANDLE RenderTarget :: GetHandle(const Device& Device, const DescriptorHeap& Heap, UINT Index)const noexcept {
+[[nodiscard]] D3D12_CPU_DESCRIPTOR_HANDLE RenderTarget :: GetHandle(const DescriptorHeap& Heap, UINT Index)const noexcept {
 	if (Index >= Rendertargets_.size() || !Rendertargets_[Index]) {
 		assert(false && "レンダーターゲットエラー");
 	}
@@ -54,7 +44,7 @@ RenderTarget :: ~RenderTarget() {
 	auto Type = Heap.GetType();
 	assert(Type == D3D12_DESCRIPTOR_HEAP_TYPE_RTV && "ディスクリプターヒープタイプ異常");
 	//ポインターを操作してハンドルを移動
-	Handle.ptr += (Index * Device.Get()->GetDescriptorHandleIncrementSize(Type));
+	Handle.ptr += (Index * Device::Instance().Get()->GetDescriptorHandleIncrementSize(Type));
 	return Handle;
 }
 
@@ -65,5 +55,5 @@ RenderTarget :: ~RenderTarget() {
 		assert(false && "レンダーターゲットエラー");
 		return nullptr;
 	}
-	return Rendertargets_[Index];
+	return Rendertargets_[Index].Get();
 }

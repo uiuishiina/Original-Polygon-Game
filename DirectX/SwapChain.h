@@ -11,11 +11,11 @@ class SwapChain final
 public:
 	SwapChain() = default;
 	//デストラクタ
-	~SwapChain();
+	~SwapChain() = default;
 
 	//@brief	---  スワップチェイン作成関数  ---
 	//@return	スワップチェインの作成可否
-	[[nodiscard]] bool Create(const DXGI& DXGI, const CommandQueue& Queue, const Window& Window)noexcept;
+	[[nodiscard]] bool Create(const CommandQueue& Queue, const Window& Window)noexcept;
 
 	//@brief	---  スワップチェインポインター取得関数  ---
 	//@return	スワップチェインのポインター
@@ -25,6 +25,6 @@ public:
 	//@return	スワップチェインの設定
 	[[nodiscard]] const DXGI_SWAP_CHAIN_DESC1& GetDesc()const noexcept;
 private:
-	IDXGISwapChain3* SwapChain_{};	//スワップチェイン
+	Microsoft::WRL::ComPtr <IDXGISwapChain3> SwapChain_{};	//スワップチェイン
 	DXGI_SWAP_CHAIN_DESC1 Desc_{};	//スワップチェイン設定
 };

@@ -3,14 +3,14 @@
 //------  参照  ------
 #include<d3d12.h>
 #include<dxgi1_4.h>
+#include <wrl/client.h>
 
 //@brief	------  DXGI制御クラス  ------
 class DXGI final 
 {
 public:
 	DXGI() = default;
-	//デストラクタ
-	~DXGI();
+	~DXGI() = default;
 
 	//@brief	---  ディスプレイアダプター設定関数  ---
 	//@return	ディスプレイの設定の可否
@@ -24,6 +24,6 @@ public:
 	//@return	アダプターのポインター
 	[[nodiscard]] IDXGIAdapter1* GetAdaptor()const noexcept;
 private:
-	IDXGIFactory4* dxgiFactory_{};	//DXGI作成ファクトリー
-	IDXGIAdapter1* dxgiAdapter_{};	//アダプター
+	Microsoft::WRL::ComPtr <IDXGIFactory4> dxgiFactory_{};	//DXGI作成ファクトリー
+	Microsoft::WRL::ComPtr <IDXGIAdapter1> dxgiAdapter_{};	//アダプター
 };

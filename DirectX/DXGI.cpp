@@ -4,18 +4,6 @@
 #include<cassert>
 #pragma comment(lib, "dxgi.lib")
 
-//デストラクタ
-DXGI :: ~DXGI() {
-	if (dxgiFactory_) {
-		dxgiFactory_->Release();
-		dxgiFactory_ = nullptr;
-	}
-	if (dxgiAdapter_) {
-		dxgiAdapter_->Release();
-		dxgiAdapter_ = nullptr;
-	}
-}
-
 //@brief	---  ディスプレイアダプター設定関数  ---
 //@return	ディスプレイの設定の可否
 [[nodiscard]] bool DXGI :: SetDisplayAdapter()noexcept {
@@ -77,7 +65,7 @@ DXGI :: ~DXGI() {
 		assert(false && "DXGIファクトリー未作成");
 		return nullptr;
 	}
-	return dxgiFactory_;
+	return dxgiFactory_.Get();
 }
 
 //@brief	---  ディスプレイアダプター取得関数  ---
@@ -87,5 +75,5 @@ DXGI :: ~DXGI() {
 		assert(false && "アダプター未作成");
 		return nullptr;
 	}
-	return dxgiAdapter_;
+	return dxgiAdapter_.Get();
 }

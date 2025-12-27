@@ -3,21 +3,14 @@
 #include"CommandAllocator.h"
 #include<cassert>
 
-//デストラクタ
-CommandAllocator :: ~CommandAllocator() {
-	if (Allocator_) {
-		Allocator_->Release();
-		Allocator_ = nullptr;
-	}
-}
 
 //@brief	---  コマンドアロケーター作成関数  ---
 //@return	コマンドアロケーターの作成可否
-[[nodiscard]] bool CommandAllocator :: Create(const Device& Device, const D3D12_COMMAND_LIST_TYPE Type)noexcept {
+[[nodiscard]] bool CommandAllocator :: Create(const D3D12_COMMAND_LIST_TYPE Type)noexcept {
 
 	Type_ = Type;
 	//コマンドアロケーター作成
-	const auto hr = Device.Get()->CreateCommandAllocator(Type_, IID_PPV_ARGS(&Allocator_));
+	const auto hr = Device::Instance().Get()->CreateCommandAllocator(Type_, IID_PPV_ARGS(&Allocator_));
 	if (FAILED(hr)) {
 		assert(false && "コマンドアロケーター作成失敗");
 		return false;
@@ -40,7 +33,7 @@ void CommandAllocator :: Reset()noexcept {
 		assert(false && "コマンドアロケーター未作成");
 		return nullptr;
 	}
-	return Allocator_;
+	return Allocator_.Get();
 }
 
 //@brief	---  コマンドリストタイプ取得  ---

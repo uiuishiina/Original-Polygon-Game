@@ -22,6 +22,9 @@
     <Filter Include="DirectX">
       <UniqueIdentifier>{2d8db9c7-0f21-4689-83dd-5fb2af501c12}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Polygon">
+      <UniqueIdentifier>{fbbce472-164e-4e60-aceb-4a9ed52d216b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Window\Window.h">
@@ -52,6 +55,21 @@
       <Filter>DirectX</Filter>
     </ClInclude>
     <ClInclude Include="..\DirectX\RenderTarget.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Polygon\Polygon.h">
+      <Filter>Polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Polygon\Triangle.h">
+      <Filter>Polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\CompileShader.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\RootSignature.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\PiplineState.h">
       <Filter>DirectX</Filter>
     </ClInclude>
   </ItemGroup>
@@ -87,6 +105,21 @@
       <Filter>DirectX</Filter>
     </ClCompile>
     <ClCompile Include="..\DirectX\RenderTarget.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Polygon\Polygon.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Polygon\Triangle.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\CompileShader.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\RootSignature.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\PiplineState.cpp">
       <Filter>DirectX</Filter>
     </ClCompile>
   </ItemGroup>
