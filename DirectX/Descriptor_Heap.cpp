@@ -27,18 +27,13 @@
 //@brief	---  ディスクリプターヒープ取得関数  ---
 //@return	ディスクリプターヒープのポインター
 [[nodiscard]] ID3D12DescriptorHeap* DescriptorHeap :: GetHeap()const noexcept {
-	if (!Heap_) {
-		assert(false && "ディスクリプターヒープ未作成");
-		return nullptr;
-	}
+	assert(Heap_ && "ディスクリプターヒープ未作成");
 	return Heap_.Get();
 }
 
 //@brief	---  ディスクリプターヒープタイプ取得関数  ---
 //@return	ディスクリプターヒープタイプ
 [[nodiscard]] D3D12_DESCRIPTOR_HEAP_TYPE DescriptorHeap :: GetType()const noexcept {
-	if (!Heap_) {
-		assert(false && "ディスクリプターヒープ未作成");
-	}
+	assert(Heap_ && "ディスクリプターヒープ未作成");
 	return Type_;
 }

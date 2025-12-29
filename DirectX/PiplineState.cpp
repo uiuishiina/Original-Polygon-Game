@@ -77,9 +77,6 @@
 //@brief	--- パイプラインステート取得関数  ---
 //@return	パイプラインステートのポインター
 [[nodiscard]] ID3D12PipelineState* Pipline :: Get()const noexcept {
-	if (!State_) {
-		assert(false && "パイプラインステート未作成");
-		return nullptr;
-	}
+	assert(State_ && "パイプラインステート未作成");
 	return State_.Get();
 }

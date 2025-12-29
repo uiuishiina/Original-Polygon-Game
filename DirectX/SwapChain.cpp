@@ -45,18 +45,13 @@
 //@brief	---  スワップチェインポインター取得関数  ---
 //@return	スワップチェインポインター
 [[nodiscard]] IDXGISwapChain3* SwapChain :: Get()const noexcept {
-	if (!SwapChain_) {
-		assert(false && "スワップチェイン未作成");
-		return nullptr;
-	}
+	assert(SwapChain_ && "スワップチェイン未作成");
 	return SwapChain_.Get();
 }
 
 //@brief	---  スワップチェイン設定取得  ---
 //@return	スワップチェインの設定
 [[nodiscard]] const DXGI_SWAP_CHAIN_DESC1& SwapChain :: GetDesc()const noexcept {
-	if (!SwapChain_) {
-		assert(false && "スワップチェイン未作成");
-	}
+	assert(SwapChain_ && "スワップチェイン未作成");
 	return Desc_;
 }

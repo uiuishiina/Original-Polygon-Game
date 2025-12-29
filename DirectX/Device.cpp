@@ -27,10 +27,7 @@
 //@brief	---  デバイスポインター取得関数  ---
 //@return	デバイスポインター
 [[nodiscard]] ID3D12Device* Device :: Get()const noexcept {
-	if (!Device_) {
-		assert(false && "デバイス未作成");
-		return nullptr;
-	}
+	assert(Device_ && "デバイス未作成");
 	return Device_.Get();
 }
 

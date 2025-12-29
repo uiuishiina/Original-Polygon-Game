@@ -25,6 +25,12 @@
     <Filter Include="Polygon">
       <UniqueIdentifier>{fbbce472-164e-4e60-aceb-4a9ed52d216b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{674d149b-ebef-440f-9809-3841ed45c818}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager">
+      <UniqueIdentifier>{d942a850-e29b-490e-ab83-c60704ad1849}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Window\Window.h">
@@ -70,6 +76,21 @@
       <Filter>DirectX</Filter>
     </ClInclude>
     <ClInclude Include="..\DirectX\PiplineState.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\ConstantBuffer.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Object\GameObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\DepthBuffer.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameManager\Utility.h">
+      <Filter>GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameManager\DescriptorManager.h">
       <Filter>DirectX</Filter>
     </ClInclude>
   </ItemGroup>
@@ -120,6 +141,18 @@
       <Filter>DirectX</Filter>
     </ClCompile>
     <ClCompile Include="..\DirectX\PiplineState.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\ConstantBuffer.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Object\GameObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\DepthBuffer.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameManager\DescriptorManager.cpp">
       <Filter>DirectX</Filter>
     </ClCompile>
   </ItemGroup>

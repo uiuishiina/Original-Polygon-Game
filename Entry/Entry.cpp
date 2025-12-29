@@ -142,7 +142,7 @@ public:
 			CommandList_.Get()->OMSetRenderTargets(1, Handles, false, nullptr);
 
 			//レンダーターゲットクリア
-			const float Color[] = { 1.0f,0.0f,0.0f,1.0f };
+			const float Color[] = { 0.0f,0.0f,0.0f,1.0f };
 			CommandList_.Get()->ClearRenderTargetView(Handles[0], Color, 0, nullptr);
 
 			//------  描画指示箇所  ------

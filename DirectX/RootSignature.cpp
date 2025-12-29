@@ -48,8 +48,6 @@
 //@brief	---  ルートシグネチャ取得関数  ---
 //@return	ルートシグネチャのポインター
 [[nodiscard]] ID3D12RootSignature* RootSignature :: Get()const noexcept {
-	if (!RootSignature_) {
-		assert(false && "ルートシグネチャ未作成");
-	}
+	assert(RootSignature_ && "ルートシグネチャ未作成");
 	return RootSignature_.Get();
 }

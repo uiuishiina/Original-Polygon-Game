@@ -73,9 +73,7 @@ namespace {
 //@brief	---  ウィンドウハンドル取得関数  ---
 //@return	ウィンドウハンドル
 [[nodiscard]] HWND Window :: GetHandle()const noexcept {
-	if (!Handle_) {
-		assert(false && "ウィンドウハンドル未作成");
-	}
+	assert(Handle_ && "ウィンドウハンドル未作成");
 	return Handle_;
 }
 

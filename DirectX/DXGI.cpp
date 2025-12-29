@@ -61,19 +61,13 @@
 //@brief	---  DXGIファクトリー取得関数  ---
 //@return	ファクトリーのポインター
 [[nodiscard]] IDXGIFactory4* DXGI :: GetFactory()const noexcept {
-	if (!dxgiFactory_) {
-		assert(false && "DXGIファクトリー未作成");
-		return nullptr;
-	}
+	assert(dxgiFactory_ && "DXGIファクトリー未作成");
 	return dxgiFactory_.Get();
 }
 
 //@brief	---  ディスプレイアダプター取得関数  ---
 //@return	アダプターのポインター
 [[nodiscard]] IDXGIAdapter1* DXGI :: GetAdaptor()const noexcept {
-	if (!dxgiAdapter_) {
-		assert(false && "アダプター未作成");
-		return nullptr;
-	}
+	assert(dxgiAdapter_ && "アダプター未作成");
 	return dxgiAdapter_.Get();
 }

@@ -40,9 +40,6 @@ void Fence :: Wait(UINT64 Value)const noexcept {
 
 //@brief	---  フェンス取得関数  ---
 [[nodiscard]] ID3D12Fence* Fence :: Get()const noexcept {
-	if (!Fence_) {
-		assert(false && "フェンス未作成");
-		return nullptr;
-	}
+	assert(Fence_ && "フェンス未作成");
 	return Fence_.Get();
 }

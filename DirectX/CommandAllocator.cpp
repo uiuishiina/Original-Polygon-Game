@@ -20,27 +20,20 @@
 
 //@brief	---  コマンドアロケーターリセット関数  ---
 void CommandAllocator :: Reset()noexcept {
-	if (!Allocator_) {
-		assert(false && "コマンドアロケーター未作成");
-	}
+	assert(Allocator_ && "コマンドアロケーター未作成");
 	Allocator_->Reset();
 }
 
 //@brief	---  コマンドアロケーター取得関数  ---
 //@return	コマンドアロケーターのポインター
 [[nodiscard]] ID3D12CommandAllocator* CommandAllocator :: Get()const noexcept {
-	if (!Allocator_) {
-		assert(false && "コマンドアロケーター未作成");
-		return nullptr;
-	}
+	assert(Allocator_ && "コマンドアロケーター未作成");
 	return Allocator_.Get();
 }
 
 //@brief	---  コマンドリストタイプ取得  ---
 //@return	コマンドリストタイプ
 [[nodiscard]] D3D12_COMMAND_LIST_TYPE CommandAllocator :: GetType()const noexcept {
-	if (!Allocator_) {
-		assert(false && "コマンドアロケーター未作成");
-	}
+	assert(Allocator_ && "コマンドアロケーター未作成");
 	return Type_;
 }

@@ -38,19 +38,13 @@
 //@brief	---  頂点シェーダー取得関数  ---
 //@return	頂点シェーダーのポインター
 [[nodiscard]] ID3DBlob* CompileShader :: GetVertex()const noexcept {
-	if (!VertexShader_) {
-		assert(false && "頂点シェーダー未作成");
-		return nullptr;
-	}
+	assert(VertexShader_ && "頂点シェーダー未作成");
 	return VertexShader_.Get();
 }
 
 //@brief	---  ピクセルシェーダー取得関数  ---
 //@return	ピクセルシェーダーのポインター
 [[nodiscard]] ID3DBlob* CompileShader :: GetPixel()const noexcept {
-	if (!PixelShader_) {
-		assert(false && "ピクセルシェーダー未作成");
-		return nullptr;
-	}
+	assert(PixelShader_ && "ピクセルシェーダー未作成");
 	return PixelShader_.Get();
 }

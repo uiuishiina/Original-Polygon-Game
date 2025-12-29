@@ -17,7 +17,7 @@ namespace {
 	//頂点データ
 	Vertex Vertex_[] = {
 		//頂点位置					//頂点色
-		{{	0.0f,	0.5f,	0.0f},{	1.0f,	1.0f,	0.0f,	1.0f}},
+		{{	0.0f,	0.5f,	0.0f},{	1.0f,	0.0f,	0.0f,	1.0f}},
 		{{	0.5f,	-0.5f,	0.0f},{	0.0f,	1.0f,	0.0f,	1.0f}},
 		{{	-0.5f,	-0.5f,	0.0f},{	0.0f,	0.0f,	1.0f,	1.0f}},
 	};
@@ -140,7 +140,7 @@ namespace {
 	IndexBuffer_->Unmap(0, nullptr);
 
 	//頂点バッファビューの設定
-	IndexView_.BufferLocation	= VertexBuffer_->GetGPUVirtualAddress();
+	IndexView_.BufferLocation	= IndexBuffer_->GetGPUVirtualAddress();
 	IndexView_.SizeInBytes		= Indexsize;
 	IndexView_.Format			= DXGI_FORMAT_R16_UINT;
 

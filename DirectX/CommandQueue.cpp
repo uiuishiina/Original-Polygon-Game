@@ -26,9 +26,6 @@
 //@brief	---  コマンドキュー取得関数  ---
 //@return	コマンドキューのポインター
 [[nodiscard]] ID3D12CommandQueue* CommandQueue :: Get()const noexcept {
-	if (!CommandQueue_) {
-		assert(false && "コマンドキュー未作成");
-		return nullptr;
-	}
+	assert(CommandQueue_ && "コマンドキュー未作成");
 	return CommandQueue_.Get();
 }

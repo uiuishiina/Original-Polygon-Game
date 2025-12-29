@@ -128,6 +128,8 @@
     <ClInclude Include="..\DirectX\CommandList.h" />
     <ClInclude Include="..\DirectX\CommandQueue.h" />
     <ClInclude Include="..\DirectX\CompileShader.h" />
+    <ClInclude Include="..\DirectX\ConstantBuffer.h" />
+    <ClInclude Include="..\DirectX\DepthBuffer.h" />
     <ClInclude Include="..\DirectX\Descriptor_Heap.h" />
     <ClInclude Include="..\DirectX\Device.h" />
     <ClInclude Include="..\DirectX\DXGI.h" />
@@ -136,6 +138,9 @@
     <ClInclude Include="..\DirectX\RenderTarget.h" />
     <ClInclude Include="..\DirectX\RootSignature.h" />
     <ClInclude Include="..\DirectX\SwapChain.h" />
+    <ClInclude Include="..\GameManager\DescriptorManager.h" />
+    <ClInclude Include="..\GameManager\Utility.h" />
+    <ClInclude Include="..\Object\GameObject.h" />
     <ClInclude Include="..\Polygon\Polygon.h" />
     <ClInclude Include="..\Polygon\Triangle.h" />
     <ClInclude Include="..\Window\Window.h" />
@@ -145,6 +150,8 @@
     <ClCompile Include="..\DirectX\CommandList.cpp" />
     <ClCompile Include="..\DirectX\CommandQueue.cpp" />
     <ClCompile Include="..\DirectX\CompileShader.cpp" />
+    <ClCompile Include="..\DirectX\ConstantBuffer.cpp" />
+    <ClCompile Include="..\DirectX\DepthBuffer.cpp" />
     <ClCompile Include="..\DirectX\Descriptor_Heap.cpp" />
     <ClCompile Include="..\DirectX\Device.cpp" />
     <ClCompile Include="..\DirectX\DXGI.cpp" />
@@ -154,6 +161,8 @@
     <ClCompile Include="..\DirectX\RootSignature.cpp" />
     <ClCompile Include="..\DirectX\SwapChain.cpp" />
     <ClCompile Include="..\Entry\Entry.cpp" />
+    <ClCompile Include="..\GameManager\DescriptorManager.cpp" />
+    <ClCompile Include="..\Object\GameObject.cpp" />
     <ClCompile Include="..\Polygon\Polygon.cpp" />
     <ClCompile Include="..\Polygon\Triangle.cpp" />
     <ClCompile Include="..\Window\Window.cpp" />

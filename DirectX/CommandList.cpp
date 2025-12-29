@@ -21,9 +21,7 @@
 
 //@brief	---  コマンドリストリセット関数  ---
 void CommandList :: Reset(const CommandAllocator& Allocator)noexcept {
-	if (!List_) {
-		assert(false && "コマンドリスト未作成");
-	}
+	assert(List_ && "コマンドリスト未作成");
 	//コマンドリストリセット
 	List_->Reset(Allocator.Get(), nullptr);
 }
@@ -31,9 +29,6 @@ void CommandList :: Reset(const CommandAllocator& Allocator)noexcept {
 //@brief	---  コマンドリスト取得関数  ---
 //@return	コマンドリストのポインター
 [[nodiscard]] ID3D12GraphicsCommandList* CommandList :: Get()const noexcept {
-	if (!List_) {
-		assert(false && "コマンドリスト未作成");
-		return nullptr;
-	}
+	assert(List_ && "コマンドリスト未作成");
 	return List_.Get();
 }
