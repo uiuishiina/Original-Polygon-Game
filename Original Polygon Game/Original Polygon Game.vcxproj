@@ -139,6 +139,8 @@
     <ClInclude Include="..\DirectX\RootSignature.h" />
     <ClInclude Include="..\DirectX\SwapChain.h" />
     <ClInclude Include="..\GameManager\DescriptorManager.h" />
+    <ClInclude Include="..\GameManager\GameObjectManager.h" />
+    <ClInclude Include="..\GameManager\PolygonManager.h" />
     <ClInclude Include="..\GameManager\Utility.h" />
     <ClInclude Include="..\Object\GameObject.h" />
     <ClInclude Include="..\Polygon\Polygon.h" />
@@ -162,6 +164,8 @@
     <ClCompile Include="..\DirectX\SwapChain.cpp" />
     <ClCompile Include="..\Entry\Entry.cpp" />
     <ClCompile Include="..\GameManager\DescriptorManager.cpp" />
+    <ClCompile Include="..\GameManager\GameObjectManager.cpp" />
+    <ClCompile Include="..\GameManager\PolygonManager.cpp" />
     <ClCompile Include="..\Object\GameObject.cpp" />
     <ClCompile Include="..\Polygon\Polygon.cpp" />
     <ClCompile Include="..\Polygon\Triangle.cpp" />

@@ -90,8 +90,14 @@
     <ClInclude Include="..\GameManager\Utility.h">
       <Filter>GameManager</Filter>
     </ClInclude>
+    <ClInclude Include="..\GameManager\GameObjectManager.h">
+      <Filter>GameManager</Filter>
+    </ClInclude>
     <ClInclude Include="..\GameManager\DescriptorManager.h">
-      <Filter>DirectX</Filter>
+      <Filter>GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameManager\PolygonManager.h">
+      <Filter>GameManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -152,8 +158,14 @@
     <ClCompile Include="..\DirectX\DepthBuffer.cpp">
       <Filter>DirectX</Filter>
     </ClCompile>
+    <ClCompile Include="..\GameManager\GameObjectManager.cpp">
+      <Filter>GameManager</Filter>
+    </ClCompile>
     <ClCompile Include="..\GameManager\DescriptorManager.cpp">
-      <Filter>DirectX</Filter>
+      <Filter>GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameManager\PolygonManager.cpp">
+      <Filter>GameManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
