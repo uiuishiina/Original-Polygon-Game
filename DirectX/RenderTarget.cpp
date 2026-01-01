@@ -6,17 +6,17 @@
 
 //@brief	--- レンダーターゲット作成関数  ---
 //@return	レンダーターゲットの作成可否
-[[nodiscard]] bool RenderTarget :: Create(const SwapChain& Swap, const DescriptorHeap& Heap)noexcept {
+[[nodiscard]] bool RenderTarget :: Create(const SwapChain& Swap)noexcept {
 
 	//スワップチェインの設定を取得
 	const auto& desc = Swap.GetDesc();
 	//配列のサイズ設定
 	Rendertargets_.resize(desc.BufferCount);
+	//ディスクリプターヒープのタイプを取得 
+	auto h = DHManager::Instance().Get(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 	//ディスクリプターヒープの先頭を取得
-	auto Handle = Heap.GetHeap()->GetCPUDescriptorHandleForHeapStart();
-	//ディスクリプターヒープのタイプを取得
-	auto Type = Heap.GetType();
-	assert(Type == D3D12_DESCRIPTOR_HEAP_TYPE_RTV && "ディスクリプターヒープタイプ異常");
+	auto Handle = h->GetCPUDescriptorHandleForHeapStart();
+	
 	//バッファの作成
 	for (UINT i = 0; i < desc.BufferCount; i++) {
 		const auto hr = Swap.Get()->GetBuffer(i, IID_PPV_ARGS(&Rendertargets_[i]));
@@ -27,24 +27,24 @@
 		//レンダーターゲットビューを作成しディスクリプターヒープと紐づけ
 		Device::Instance().Get()->CreateRenderTargetView(Rendertargets_[i].Get(), nullptr, Handle);
 		//ポインターを操作してハンドルを移動
-		Handle.ptr += Device::Instance().Get()->GetDescriptorHandleIncrementSize(Type);
+		Handle.ptr += Device::Instance().Get()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 	}
 	return true;
 }
 
 //@brief	---  ディスクリプタハンドル取得関数  ---
 //@return	ディスクリプタハンドル
-[[nodiscard]] D3D12_CPU_DESCRIPTOR_HANDLE RenderTarget :: GetHandle(const DescriptorHeap& Heap, UINT Index)const noexcept {
+[[nodiscard]] D3D12_CPU_DESCRIPTOR_HANDLE RenderTarget :: GetHandle(UINT Index)const noexcept {
 	if (Index >= Rendertargets_.size() || !Rendertargets_[Index]) {
 		assert(false && "レンダーターゲットエラー");
 	}
-	//ディスクリプターヒープの先頭を取得
-	auto Handle = Heap.GetHeap()->GetCPUDescriptorHandleForHeapStart();
+	
 	//ディスクリプターヒープのタイプを取得
-	auto Type = Heap.GetType();
-	assert(Type == D3D12_DESCRIPTOR_HEAP_TYPE_RTV && "ディスクリプターヒープタイプ異常");
+	auto h = DHManager::Instance().Get(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+	//ディスクリプターヒープの先頭を取得
+	auto Handle = h->GetCPUDescriptorHandleForHeapStart();
 	//ポインターを操作してハンドルを移動
-	Handle.ptr += (Index * Device::Instance().Get()->GetDescriptorHandleIncrementSize(Type));
+	Handle.ptr += (Index * Device::Instance().Get()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV));
 	return Handle;
 }
 

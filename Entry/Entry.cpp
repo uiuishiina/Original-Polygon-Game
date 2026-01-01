@@ -8,7 +8,6 @@
 #include"../DirectX/Device.h"
 #include"../DirectX/CommandQueue.h"
 #include"../DirectX/SwapChain.h"
-#include"../DirectX/Descriptor_Heap.h"
 #include"../DirectX/RenderTarget.h"
 #include"../DirectX/CommandAllocator.h"
 #include"../DirectX/CommandList.h"
@@ -18,6 +17,10 @@
 #include"../DirectX/PiplineState.h"
 //------  Polygon  ------
 #include"../Polygon/Triangle.h"
+#include"../Polygon/Square.h"
+//------  GameManager  ------
+#include"../GameManager/DescriptorManager.h"
+#include"../GameManager/PolygonManager.h"
 //------  名前空間  ------
 namespace {
 	constexpr std::string_view APP_NAME = "MyGame";
@@ -57,14 +60,14 @@ public:
 			return false;
 		}
 
-		//ディスクリプターヒープ作成
-		if (!Heap_.Create(D3D12_DESCRIPTOR_HEAP_TYPE_RTV, SwapChain_.GetDesc().BufferCount)) {
+		//描画用ディスクリプターヒープ作成
+		if (!DHManager::Instance().Create(D3D12_DESCRIPTOR_HEAP_TYPE_RTV, SwapChain_.GetDesc().BufferCount)) {
 			assert(false && "ディスクリプターヒープの作成に失敗しました(App)");
 			return false;
 		}
 
 		//レンダーターゲット作成
-		if (!RenderTarget_.Create(SwapChain_, Heap_)) {
+		if (!RenderTarget_.Create(SwapChain_)) {
 			assert(false && "レンダーターゲットの作成に失敗しました(App)");
 			return false;
 		}
@@ -90,10 +93,15 @@ public:
 		}
 
 		//ポリゴン作成
-		if (!Tri_.Create()) {
+		/*if (!Tri_.Create()) {
 			assert(false && "ポリゴンの作成に失敗しました(App)");
 			return false;
 		}
+		if (!Squ_.Create()) {
+			assert(false && "ポリゴンの作成に失敗しました(App)");
+			return false;
+		}*/
+		PID_ = PolygonManager::Instance().Create<Square>();
 
 		//ルートシグネチャ作成
 		if (!Root_.Create()) {
@@ -138,7 +146,7 @@ public:
 			CommandList_.Get()->ResourceBarrier(1, &PtoRT);
 
 			//レンダーターゲット設定
-			D3D12_CPU_DESCRIPTOR_HANDLE Handles[] = {RenderTarget_.GetHandle(Heap_,BufferIndex)};
+			D3D12_CPU_DESCRIPTOR_HANDLE Handles[] = {RenderTarget_.GetHandle(BufferIndex)};
 			CommandList_.Get()->OMSetRenderTargets(1, Handles, false, nullptr);
 
 			//レンダーターゲットクリア
@@ -171,7 +179,7 @@ public:
 				scissorRect.bottom = h;
 				CommandList_.Get()->RSSetScissorRects(1, &scissorRect);
 
-				Tri_.Draw(CommandList_);
+				PolygonManager::Instance().Draw(CommandList_, PID_);
 			}
 
 			//リソースバリアー変更
@@ -217,7 +225,6 @@ private:
 	Window				Window_{};		//@brief	ウィンドウインスタンス
 	CommandQueue		Queue_{};		//@brief	コマンドキューインスタンス
 	SwapChain			SwapChain_{};	//@brief	スワップチェインインスタンス
-	DescriptorHeap		Heap_{};		//@brief	ディスクリプターヒープインスタンス
 	RenderTarget		RenderTarget_{};//@brief	レンダーターゲットインスタンス
 	CommandAllocator	Allocator_[2]{};//@brief	コマンドアロケーターインスタンス
 	CommandList			CommandList_{};	//@brief	コマンドリストインスタンス
@@ -226,9 +233,11 @@ private:
 	CompileShader		Shader_{};		//@brief	
 	Pipline				Pipline_{};		//@brief	
 	Troangle			Tri_{};			//@brief
+	Square				Squ_{};
 	
 	UINT64 FenceValue_[2]{};
 	UINT64 NextFenceValue_ = 1;
+	UINT64 PID_;
 };
 
 //@brief	------  ゲームメイン関数  ------

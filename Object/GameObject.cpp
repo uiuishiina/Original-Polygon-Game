@@ -11,5 +11,5 @@ void GameObject :: Initialize()noexcept {
 //@brief	---  コンスタントバッファ作成関数  ---
 //@return	コンスタントバッファの作成可否
 [[nodiscard]] bool GameObject :: CreateConstantBuffer()noexcept {
-	
+	return true;
 }

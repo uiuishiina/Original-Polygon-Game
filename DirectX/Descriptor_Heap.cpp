@@ -21,6 +21,11 @@
 		assert(false && "ディスクリプターヒープ作成失敗");
 		return false;
 	}
+
+	for (int i = 0; i < numDescriptors; i++) {
+		FreeID_.push_back(i);
+	}
+
 	return true;
 }
 
@@ -36,4 +41,15 @@
 [[nodiscard]] D3D12_DESCRIPTOR_HEAP_TYPE DescriptorHeap :: GetType()const noexcept {
 	assert(Heap_ && "ディスクリプターヒープ未作成");
 	return Type_;
+}
+
+//@brief	---  ディスクリプターヒープ確保関数  ---
+//@return	確保したディスクリプターヒープの番号
+[[nodiscard]] std::optional<UINT> DescriptorHeap :: AllocateDescriptor() noexcept {
+	if (FreeID_.empty()) {
+		return std::nullopt;
+	}
+	const auto index = FreeID_.back();
+	FreeID_.pop_back();
+	return index;
 }

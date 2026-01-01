@@ -9,7 +9,7 @@
 //@param	作成するバッファのメモリサイズ
 //@param	作成するバッファの位置指定
 //@return	コンスタントバッファの作成可否
-[[nodiscard]] bool ConstantBuffer :: Create(const DescriptorHeap& Heap, UINT BufferSize_, UINT Index)noexcept {
+[[nodiscard]] bool ConstantBuffer :: Create(UINT BufferSize_)noexcept {
 
 	//アラインメント後のサイズ計算
 	const auto size = (sizeof(BufferSize_) + 255) & ~255;
@@ -41,11 +41,8 @@
     }
 
     //ビュー作成
-    const auto Type = Heap.GetType();
-    if (Type != D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV) {
-        assert(false && "ヒープタイプ異常");
-        return false;
-    }
+    auto Index = DHManager::Instance().AllocateDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+    auto heap = DHManager::Instance().Get(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
     //コンスタントバッファビュー設定
     D3D12_CONSTANT_BUFFER_VIEW_DESC Desc{};
@@ -53,15 +50,15 @@
     Desc.SizeInBytes = size;
 
     //ディスクリプタのサイズ取得
-    const auto Descriptorsize = Device::Instance().Get()->GetDescriptorHandleIncrementSize(Heap.GetType());
+    const auto Descriptorsize = Device::Instance().Get()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
     //ディスクリプターヒープ先頭アドレス取得
-    auto CPUHandle = Heap.GetHeap()->GetCPUDescriptorHandleForHeapStart();
+    auto CPUHandle = heap->GetCPUDescriptorHandleForHeapStart();
     //アドレスを指定分移動
     CPUHandle.ptr += Index * Descriptorsize;
     //コンスタントバッファビューとディスクリプターヒープを紐づけ
     Device::Instance().Get()->CreateConstantBufferView(&Desc, CPUHandle);
     //ディスクリプタハンドル保存
-    GPUHandle_ = Heap.GetHeap()->GetGPUDescriptorHandleForHeapStart();
+    GPUHandle_ = heap->GetGPUDescriptorHandleForHeapStart();
     GPUHandle_.ptr += Index * Descriptorsize;
 
     return true;

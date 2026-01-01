@@ -10,7 +10,7 @@ class Polygon
 {
 public:
 	Polygon() = default;
-	~Polygon() = default;
+	virtual ~Polygon() = default;
 
 	//@brief	---  ƒ|ƒŠƒSƒ“ì¬ŠÖ”  ---
 	[[nodiscard]] bool Create()noexcept;

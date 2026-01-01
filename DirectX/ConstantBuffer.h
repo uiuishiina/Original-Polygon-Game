@@ -2,7 +2,8 @@
 //------  ConstantBuffer.h  ------
 //------  参照  ------
 #include"Device.h"
-#include"Descriptor_Heap.h"
+#include"../GameManager/DescriptorManager.h"
+
 
 
 //@brief	------  コンスタントバッファ制御クラス  ------
@@ -17,7 +18,7 @@ public:
 	//@param	作成するバッファのメモリサイズ
 	//@param	作成するバッファの位置指定
 	//@return	コンスタントバッファの作成可否
-	[[nodiscard]] bool Create(const DescriptorHeap& Heap, UINT BufferSize_, UINT Index)noexcept;
+	[[nodiscard]] bool Create(UINT BufferSize_)noexcept;
 
 	//@brief	---  コンスタントバッファ取得関数  ---
 	//@return	コンスタントバッファポインター

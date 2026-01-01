@@ -144,6 +144,7 @@
     <ClInclude Include="..\GameManager\Utility.h" />
     <ClInclude Include="..\Object\GameObject.h" />
     <ClInclude Include="..\Polygon\Polygon.h" />
+    <ClInclude Include="..\Polygon\Square.h" />
     <ClInclude Include="..\Polygon\Triangle.h" />
     <ClInclude Include="..\Window\Window.h" />
   </ItemGroup>
@@ -168,6 +169,7 @@
     <ClCompile Include="..\GameManager\PolygonManager.cpp" />
     <ClCompile Include="..\Object\GameObject.cpp" />
     <ClCompile Include="..\Polygon\Polygon.cpp" />
+    <ClCompile Include="..\Polygon\Spuare.cpp" />
     <ClCompile Include="..\Polygon\Triangle.cpp" />
     <ClCompile Include="..\Window\Window.cpp" />
   </ItemGroup>
