@@ -1,6 +1,9 @@
 #pragma once
 //------  GameObject.h  ------
 //------  参照  ------
+#include"../GameManager/PolygonManager.h"
+#include"../Polygon/Triangle.h"
+#include"../Polygon/Square.h"
 #include"../DirectX/ConstantBuffer.h"
 #include"../DirectX/CommandList.h"
 #include<DirectXMath.h>
@@ -32,7 +35,7 @@ public:
 	virtual [[nodiscard]] bool CreateConstantBuffer()noexcept;
 
 	//@brief	---  描画指示設定  ---
-	void SetDrawCommand(const CommandList& List, UINT slot)noexcept;
+	virtual void SetDrawCommand(const CommandList& List, UINT slot)noexcept;
 
 	//@brief	---  オブジェクトデータ設定関数  ---
 	//@param	ポジション
@@ -46,7 +49,7 @@ public:
 	void SetClassID(UINT64 ID)noexcept;
 
 	//@brief	---  個別識別子設定関数  ---
-	void SetMyHandle()noexcept;
+	void SetMyHandle(UINT64 ID)noexcept;
 
 //------  参照関数群  ------
 

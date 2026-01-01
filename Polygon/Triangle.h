@@ -4,11 +4,11 @@
 #include"Polygon.h"
 
 //@brief	------  三角形ポリゴン描画クラス  ------
-class Troangle final:public Polygon
+class Triangle final:public Polygon
 {
 public:
-	Troangle() = default;
-	~Troangle() = default;
+	Triangle() = default;
+	~Triangle() = default;
 
 private:
 	//@brief	---  頂点バッファ作成関数  ---

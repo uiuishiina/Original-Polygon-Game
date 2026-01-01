@@ -8,10 +8,11 @@
 class Window final 
 {
 public:
-	Window() = default;
-	//デストラクタ
-	~Window() = default;
-
+	//@brief	---  ウィンドウ取得関数  ---
+	static Window& Instance()noexcept {
+		static Window Instance;
+		return Instance;
+	}
 	//@brief	ウィンドウ作成関数
 	//@return	ウィンドウ作成の成否
 	[[nodiscard]] bool Create(HINSTANCE instance, int width, int height, std::string_view name)noexcept;
@@ -28,6 +29,10 @@ public:
 	//@return	ウィンドウサイズ
 	[[nodiscard]] std::pair<int, int> GetSize()const noexcept;
 private:
+	Window() = default;
+	//デストラクタ
+	~Window() = default;
+
 	HWND	Handle_{};	//ウィンドウハンドル
 	int		Witdh_{};	//ウィンドウの横幅
 	int		Height_{};	//ウィンドウの縦幅

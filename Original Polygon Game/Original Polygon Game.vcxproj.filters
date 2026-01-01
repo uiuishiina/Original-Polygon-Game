@@ -99,6 +99,15 @@
     <ClInclude Include="..\GameManager\PolygonManager.h">
       <Filter>GameManager</Filter>
     </ClInclude>
+    <ClInclude Include="..\Polygon\Square.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Object\Camera.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Object\Enemy.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Window\Window.cpp">
@@ -166,6 +175,15 @@
     </ClCompile>
     <ClCompile Include="..\GameManager\PolygonManager.cpp">
       <Filter>GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Polygon\Spuare.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Object\Camera.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Object\Enemy.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

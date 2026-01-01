@@ -15,7 +15,7 @@ public:
 
 	//@brief	---  スワップチェイン作成関数  ---
 	//@return	スワップチェインの作成可否
-	[[nodiscard]] bool Create(const CommandQueue& Queue, const Window& Window)noexcept;
+	[[nodiscard]] bool Create(const CommandQueue& Queue)noexcept;
 
 	//@brief	---  スワップチェインポインター取得関数  ---
 	//@return	スワップチェインのポインター

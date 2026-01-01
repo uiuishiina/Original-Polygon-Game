@@ -1,6 +1,7 @@
 //------  Entry.cpp  ------
 //------  参照  ------
 #include<cassert>
+#include <memory>
 //------  Window  ------
 #include"../Window/Window.h"
 //------  DirectX  ------
@@ -15,12 +16,18 @@
 #include"../DirectX/RootSignature.h"
 #include"../DirectX/CompileShader.h"
 #include"../DirectX/PiplineState.h"
+#include"../DirectX/DepthBuffer.h"
+#include"../DirectX/ConstantBuffer.h"
 //------  Polygon  ------
 #include"../Polygon/Triangle.h"
 #include"../Polygon/Square.h"
 //------  GameManager  ------
 #include"../GameManager/DescriptorManager.h"
 #include"../GameManager/PolygonManager.h"
+#include"../GameManager/GameObjectManager.h"
+//------  Object  ------
+#include"../Object/Camera.h"
+#include"../Object/Enemy.h"
 //------  名前空間  ------
 namespace {
 	constexpr std::string_view APP_NAME = "MyGame";
@@ -37,7 +44,7 @@ public:
 	[[nodiscard]] bool Initialize(HINSTANCE instance)noexcept {
 
 		//ウィンドウ作成
-		if (!Window_.Create(instance, 1280, 720, APP_NAME)) {
+		if (!Window::Instance().Create(instance, 1280, 720, APP_NAME)) {
 			assert(false && "ウィンドウズの作成に失敗しました(App)");
 			return false;
 		}
@@ -55,8 +62,13 @@ public:
 		}
 
 		//スワップチェイン作成
-		if (!SwapChain_.Create(Queue_, Window_)) {
+		if (!SwapChain_.Create(Queue_)) {
 			assert(false && "スワップチェインの作成に失敗しました(App)");
+			return false;
+		}
+		// 定数バッファ用ディスクリプタヒープの生成
+		if (!DHManager::Instance().Create(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 1, true)) {
+			assert(false && "定数バッファ用ディスクリプタヒープの作成に失敗しました");
 			return false;
 		}
 
@@ -66,9 +78,21 @@ public:
 			return false;
 		}
 
+		// デプスバッファ用ディスクリプタヒープの作成
+		if (!DHManager::Instance().Create(D3D12_DESCRIPTOR_HEAP_TYPE_DSV, 1)) {
+			assert(false && "デプスバッファ用ディスクリプタヒープの作成に失敗しました");
+			return false;
+		}
+
 		//レンダーターゲット作成
 		if (!RenderTarget_.Create(SwapChain_)) {
 			assert(false && "レンダーターゲットの作成に失敗しました(App)");
+			return false;
+		}
+
+		//デプスバッファ作成
+		if (!Depth_.Create()) {
+			assert(false && "デプスバッファの作成に失敗しました(App)");
 			return false;
 		}
 
@@ -92,17 +116,6 @@ public:
 			return false;
 		}
 
-		//ポリゴン作成
-		/*if (!Tri_.Create()) {
-			assert(false && "ポリゴンの作成に失敗しました(App)");
-			return false;
-		}
-		if (!Squ_.Create()) {
-			assert(false && "ポリゴンの作成に失敗しました(App)");
-			return false;
-		}*/
-		PID_ = PolygonManager::Instance().Create<Square>();
-
 		//ルートシグネチャ作成
 		if (!Root_.Create()) {
 			assert(false && "ルートシグネチャの作成に失敗しました(App)");
@@ -121,14 +134,21 @@ public:
 			return false;
 		}
 
-
+		if (!MyGame::GameObjectManager::Instance().CreateGameObject<MyGame::CAMERA>()) {
+			assert(false && "カメラの作成に失敗しました(App)");
+			return false;
+		}
+		
+		
 		//アプリケーション作成完了
 		return true;
 	}
 
 	//@brief	---  アプリケーションループ関数  ---
 	void Loop()noexcept {
-		while (Window_.MessegeLoop()) {
+		while (Window::Instance().MessegeLoop()) {
+
+			MyGame::GameObjectManager::Instance().UpDate();
 
 			//現在のバッファインデックスを取得
 			const auto BufferIndex = SwapChain_.Get()->GetCurrentBackBufferIndex();
@@ -147,11 +167,15 @@ public:
 
 			//レンダーターゲット設定
 			D3D12_CPU_DESCRIPTOR_HANDLE Handles[] = {RenderTarget_.GetHandle(BufferIndex)};
-			CommandList_.Get()->OMSetRenderTargets(1, Handles, false, nullptr);
+			auto Handle = Depth_.GetHandle();
+			CommandList_.Get()->OMSetRenderTargets(1, Handles, false, &Handle);
 
 			//レンダーターゲットクリア
 			const float Color[] = { 0.0f,0.0f,0.0f,1.0f };
 			CommandList_.Get()->ClearRenderTargetView(Handles[0], Color, 0, nullptr);
+
+			// デプスバッファのクリア
+			CommandList_.Get()->ClearDepthStencilView(Handle, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 
 			//------  描画指示箇所  ------
 			{
@@ -161,7 +185,7 @@ public:
 				CommandList_.Get()->SetGraphicsRootSignature(Root_.Get());
 
 				// ビューポートの設定
-				const auto [w, h] = Window_.GetSize();
+				const auto [w, h] = Window::Instance().GetSize();
 				D3D12_VIEWPORT viewport{};
 				viewport.TopLeftX = 0.0f;
 				viewport.TopLeftY = 0.0f;
@@ -179,7 +203,10 @@ public:
 				scissorRect.bottom = h;
 				CommandList_.Get()->RSSetScissorRects(1, &scissorRect);
 
-				PolygonManager::Instance().Draw(CommandList_, PID_);
+				// コンスタントバッファ用ディスクリプタヒープの設定
+				ID3D12DescriptorHeap * p[] = { DHManager::Instance().Get(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV) };
+				CommandList_.Get()->SetDescriptorHeaps(1, p);
+
 			}
 
 			//リソースバリアー変更
@@ -222,7 +249,6 @@ private:
 private:
 	//------  各クラスのインスタンス  ------
 
-	Window				Window_{};		//@brief	ウィンドウインスタンス
 	CommandQueue		Queue_{};		//@brief	コマンドキューインスタンス
 	SwapChain			SwapChain_{};	//@brief	スワップチェインインスタンス
 	RenderTarget		RenderTarget_{};//@brief	レンダーターゲットインスタンス
@@ -232,12 +258,12 @@ private:
 	RootSignature		Root_{};		//@brief	
 	CompileShader		Shader_{};		//@brief	
 	Pipline				Pipline_{};		//@brief	
-	Troangle			Tri_{};			//@brief
-	Square				Squ_{};
+	DepthBuffer			Depth_{};
+	ConstantBuffer		Constant_{};
+	Enemy				E_{};
 	
 	UINT64 FenceValue_[2]{};
 	UINT64 NextFenceValue_ = 1;
-	UINT64 PID_;
 };
 
 //@brief	------  ゲームメイン関数  ------

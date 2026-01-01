@@ -6,9 +6,9 @@
 
 //@brief	---  スワップチェイン作成関数  ---
 //@return	スワップチェイン作成可否
-[[nodiscard]] bool SwapChain :: Create(const CommandQueue& Queue, const Window& Window)noexcept {
+[[nodiscard]] bool SwapChain :: Create(const CommandQueue& Queue)noexcept {
 
-	const auto [w, h] = Window.GetSize();
+	const auto [w, h] = Window::Instance().GetSize();
 
 	//スワップチェインの設定
 	Desc_ = {};
@@ -23,7 +23,7 @@
 	//一時スワップチェイン作成
 	IDXGISwapChain1* temp{};
 	{
-		const auto hr = Device::Instance().GetDXGI().GetFactory()->CreateSwapChainForHwnd(Queue.Get(), Window.GetHandle(),
+		const auto hr = Device::Instance().GetDXGI().GetFactory()->CreateSwapChainForHwnd(Queue.Get(), Window::Instance().GetHandle(),
 			&Desc_, nullptr, nullptr, &temp);
 		if (FAILED(hr)) {
 			assert(false && "スワップチェイン作成失敗");

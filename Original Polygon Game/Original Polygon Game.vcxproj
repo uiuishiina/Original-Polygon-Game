@@ -102,7 +102,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -142,6 +142,8 @@
     <ClInclude Include="..\GameManager\GameObjectManager.h" />
     <ClInclude Include="..\GameManager\PolygonManager.h" />
     <ClInclude Include="..\GameManager\Utility.h" />
+    <ClInclude Include="..\Object\Camera.h" />
+    <ClInclude Include="..\Object\Enemy.h" />
     <ClInclude Include="..\Object\GameObject.h" />
     <ClInclude Include="..\Polygon\Polygon.h" />
     <ClInclude Include="..\Polygon\Square.h" />
@@ -167,6 +169,8 @@
     <ClCompile Include="..\GameManager\DescriptorManager.cpp" />
     <ClCompile Include="..\GameManager\GameObjectManager.cpp" />
     <ClCompile Include="..\GameManager\PolygonManager.cpp" />
+    <ClCompile Include="..\Object\Camera.cpp" />
+    <ClCompile Include="..\Object\Enemy.cpp" />
     <ClCompile Include="..\Object\GameObject.cpp" />
     <ClCompile Include="..\Polygon\Polygon.cpp" />
     <ClCompile Include="..\Polygon\Spuare.cpp" />

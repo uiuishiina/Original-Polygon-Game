@@ -12,7 +12,7 @@ namespace {
 }
 
 //@brief	---  頂点バッファ作成関数  ---
-[[nodiscard]] bool Troangle :: CreateVertexBuffer()noexcept {
+[[nodiscard]] bool Triangle:: CreateVertexBuffer()noexcept {
 
 	//頂点データ
 	Vertex Vertex_[] = {
@@ -85,7 +85,7 @@ namespace {
 }
 
 //@brief	---  インデックスバッファ作成関数  ---
-[[nodiscard]] bool Troangle :: CreateIndexBuffer()noexcept {
+[[nodiscard]] bool Triangle:: CreateIndexBuffer()noexcept {
 
 	//頂点インデックスデータ
 	uint16_t Index_[] = { 0,1,2 };
