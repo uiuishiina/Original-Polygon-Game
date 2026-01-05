@@ -6,7 +6,7 @@
 
 void Enemy::Initialize()noexcept {
 	GameObject::Initialize();
-	PolygonID_ = PolygonManager::Instance().Create<Triangle>();
+	PolygonID_ = PolygonManager::Instance().Create<Square>();//Square//Triangle
 }
 
 void Enemy::UpDate()noexcept {
@@ -19,6 +19,6 @@ void Enemy::UpDate()noexcept {
 
 //@brief	---  ï`âÊéwé¶ê›íË  ---
 void Enemy :: SetDrawCommand(const CommandList& List, UINT slot)noexcept {
-	GameObject::SetDrawCommand(List,slot);
+	//GameObject::SetDrawCommand(List,slot);
 	PolygonManager::Instance().Draw(List, PolygonID_);
 }

@@ -134,12 +134,15 @@ public:
 			return false;
 		}
 
-		if (!MyGame::GameObjectManager::Instance().CreateGameObject<MyGame::CAMERA>()) {
+		/*if (!MyGame::GameObjectManager::Instance().CreateGameObject<MyGame::CAMERA>()) {
 			assert(false && "カメラの作成に失敗しました(App)");
 			return false;
-		}
+		}*/
 		
-		
+		E_.Initialize();
+
+
+
 		//アプリケーション作成完了
 		return true;
 	}
@@ -206,6 +209,8 @@ public:
 				// コンスタントバッファ用ディスクリプタヒープの設定
 				ID3D12DescriptorHeap * p[] = { DHManager::Instance().Get(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV) };
 				CommandList_.Get()->SetDescriptorHeaps(1, p);
+
+				E_.SetDrawCommand(CommandList_, 0);
 
 			}
 
