@@ -99,14 +99,17 @@
     <ClInclude Include="..\GameManager\PolygonManager.h">
       <Filter>GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="..\Polygon\Square.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="..\Object\Camera.h">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="..\Object\Enemy.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Object\Bullet.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Polygon\Square.h">
+      <Filter>Polygon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -176,14 +179,17 @@
     <ClCompile Include="..\GameManager\PolygonManager.cpp">
       <Filter>GameManager</Filter>
     </ClCompile>
-    <ClCompile Include="..\Polygon\Spuare.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="..\Object\Camera.cpp">
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="..\Object\Enemy.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Object\Bullet.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Polygon\Spuare.cpp">
+      <Filter>Polygon</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

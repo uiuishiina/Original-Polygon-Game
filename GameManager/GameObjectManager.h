@@ -18,7 +18,21 @@ namespace MyGame {
 
 		//@brief	---  オブジェクト生成指示関数  ---
 		template <typename T>
-		[[nodiscard]] bool CreateGameObject()noexcept;
+		[[nodiscard]] bool CreateGameObject()noexcept {
+			//オブジェクトクラス確認
+			static_assert(std::is_base_of<GameObject, T>::value, "GameObject ではない物を作ろうとしています");
+			//ランダムな数値を入れている可能性がある
+			const auto handle = ++Index_;
+			//関数をpairで保存
+			auto func = []() mutable {
+				auto p = std::make_unique<T>();
+				p->SetClassID(ID::Get<T>());
+				return p;
+				};
+			Create(std::move(func), handle);
+
+			return true;
+		}
 
 		//@brief	---  生成登録関数  ---
 		void Create(std::function<std::unique_ptr<GameObject>()> creation, const UINT64 handle) noexcept;
