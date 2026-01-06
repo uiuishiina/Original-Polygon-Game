@@ -10,26 +10,37 @@ struct VSOutput
     float4 Position : SV_POSITION;
     float4 Color    : COLOR;
 };
-//ピクセルシェーダー入力構造体
-struct PSInput
+//カメラコンスタントバッファ
+cbuffer ConstantBuffer : register(b0)
 {
-    float4 Position : SV_POSITION;
-    float4 Color    : COLOR;
-};
+    matrix view_;
+    matrix projection_;
+}
+//ポリゴン
+cbuffer ConstantBuffer : register(b1)
+{
+    matrix world_;
+    float4 color_;
+}
 
 //------  頂点シェーダー出力関数  ------
 VSOutput vs(VSInput input)
 {
     VSOutput output;
     //次元変換
-    output.Position = float4(input.Position, 1.0f);
+    float4 pos = float4(input.Position, 1.0f);
+    pos = mul(pos, world_);
+    pos = mul(pos, view_);
+    pos = mul(pos, projection_);
+    output.Position = pos;
+    
     //色
     output.Color = input.Color;
     return output;
 }
 
-float4 ps(PSInput input) : SV_TARGET
+float4 ps(VSOutput input) : SV_TARGET
 {
     //色
-    return input.Color;
+    return input.Color * color_;
 }

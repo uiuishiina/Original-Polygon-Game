@@ -111,6 +111,9 @@
     <ClInclude Include="..\Polygon\Square.h">
       <Filter>Polygon</Filter>
     </ClInclude>
+    <ClInclude Include="..\Window\Input.h">
+      <Filter>Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Window\Window.cpp">
@@ -190,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="..\Polygon\Spuare.cpp">
       <Filter>Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Window\Input.cpp">
+      <Filter>Window</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

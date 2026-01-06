@@ -32,4 +32,14 @@ namespace MyGame {
 			it.second->SetDrawCommand(List,1);
 		}
 	}
+
+	//@brief	---  ゲームオブジェクト取得関数  ---
+	[[nodiscard]] std::optional<GameObject*>  GameObjectManager :: GetGameObject(UINT64 OBNum)const noexcept {
+		if (GameObjects_.find(OBNum) != GameObjects_.end()) {
+			return  std::nullopt;
+		}
+		const auto value = GameObjects_.find(OBNum);
+		assert(value->second && "ゲームオブジェクト取得ミス");
+		return value->second.get();
+	}
 }

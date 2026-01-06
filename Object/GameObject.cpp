@@ -52,15 +52,6 @@ void GameObject :: SetData(DirectX::XMFLOAT3 pos, DirectX::XMFLOAT3 rotate, Dire
 	return true;
 }
 
-//@brief	---  コンスタントバッファ更新関数  ---
-template <class T>
-void GameObject :: UpDateConstantBuffer(const T& data)noexcept {
-	std::byte* dst{};
-	MyBuffer_.Get()->Map(0, nullptr, reinterpret_cast<void**>(&dst));
-	memcpy_s(dst, sizeof(T), &data, sizeof(T));
-	MyBuffer_.Get()->Unmap(0, nullptr);
-}
-
 //@brief	---  クラス識別子設定関数  ---
 void GameObject :: SetClassID(UINT64 ID)noexcept {
 	ClassID_ = ID;

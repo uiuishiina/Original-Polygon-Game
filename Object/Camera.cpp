@@ -36,5 +36,12 @@ namespace MyGame {
             DirectX::XMLoadFloat3(&Pos_),
             DirectX::XMLoadFloat3(&Target_),
             DirectX::XMLoadFloat3(&Up_));
+        GameObject::UpDateConstantBuffer(BufferData{ DirectX::XMMatrixTranspose(view_), DirectX::XMMatrixTranspose(projection_) });
+    }
+
+    //@brief	---  ï`âÊéwé¶ê›íË  ---
+    void CAMERA :: SetDrawCommand(const CommandList& List, UINT slot)noexcept {
+        GameObject::SetDrawCommand(List, 0);
+        PolygonManager::Instance().Draw(List, PolygonID_);
     }
 }

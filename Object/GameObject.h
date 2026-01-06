@@ -79,7 +79,13 @@ protected:
 
 	//@brief	---  コンスタントバッファ更新関数  ---
 	template <class T>
-	void UpDateConstantBuffer(const T& data)noexcept;
+	void UpDateConstantBuffer(const T& data)noexcept {
+		std::byte* dst{};
+		MyBuffer_.Get()->Map(0, nullptr, reinterpret_cast<void**>(&dst));
+		memcpy_s(dst, sizeof(T), &data, sizeof(T));
+		MyBuffer_.Get()->Unmap(0, nullptr);
+	}
+
 
 protected:
 	DirectX::XMMATRIX	World_ = DirectX::XMMatrixIdentity();	//ワールド行列

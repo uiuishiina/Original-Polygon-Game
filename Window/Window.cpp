@@ -1,6 +1,7 @@
 //------  Window.cpp  ------
 //------  参照  ------
 #include"Window.h"
+#include"Input.h"
 #include<cassert>
 //------  名前空間  -----
 namespace {
@@ -66,6 +67,13 @@ namespace {
 		//メッセージ処理
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
+
+		// キー情報の取得
+		static byte keyState[256]{};
+		if (GetKeyboardState(keyState)) {
+			// キー情報取得に成功したら、Input クラスに情報を渡す
+			Input::instance().updateKeyState(keyState);
+		}
 	}
 	return true;
 }

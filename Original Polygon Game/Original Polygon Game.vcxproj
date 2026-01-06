@@ -149,6 +149,7 @@
     <ClInclude Include="..\Polygon\Polygon.h" />
     <ClInclude Include="..\Polygon\Square.h" />
     <ClInclude Include="..\Polygon\Triangle.h" />
+    <ClInclude Include="..\Window\Input.h" />
     <ClInclude Include="..\Window\Window.h" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +178,7 @@
     <ClCompile Include="..\Polygon\Polygon.cpp" />
     <ClCompile Include="..\Polygon\Spuare.cpp" />
     <ClCompile Include="..\Polygon\Triangle.cpp" />
+    <ClCompile Include="..\Window\Input.cpp" />
     <ClCompile Include="..\Window\Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

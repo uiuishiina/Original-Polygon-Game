@@ -32,7 +32,7 @@
 	RootP[0].DescriptorTable.NumDescriptorRanges	= 1;
 	RootP[0].DescriptorTable.pDescriptorRanges		= &r0;
 	RootP[1].ParameterType							= D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
-	RootP[1].ShaderVisibility						= D3D12_SHADER_VISIBILITY_VERTEX;  // すべてのシェーダーで利用する
+	RootP[1].ShaderVisibility						= D3D12_SHADER_VISIBILITY_ALL;  // すべてのシェーダーで利用する
 	RootP[1].DescriptorTable.NumDescriptorRanges	= 1;
 	RootP[1].DescriptorTable.pDescriptorRanges		= &r1;
 

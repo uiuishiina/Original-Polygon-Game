@@ -62,7 +62,8 @@
 	psoDesc.PS							= { shader.GetPixel()->GetBufferPointer(), shader.GetPixel()->GetBufferSize() };
 	psoDesc.RasterizerState				= Rdesc;
 	psoDesc.BlendState					= blendDesc;
-	//psoDesc.DepthStencilState			= DDesc;
+	psoDesc.DepthStencilState			= DDesc;
+	psoDesc.DSVFormat					= DXGI_FORMAT_D32_FLOAT;
 	psoDesc.SampleMask					= UINT_MAX;
 	psoDesc.PrimitiveTopologyType		= D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 	psoDesc.NumRenderTargets			= 1;

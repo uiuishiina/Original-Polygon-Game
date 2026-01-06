@@ -9,13 +9,19 @@ namespace MyGame {
 	class CAMERA final :public GameObject
 	{
 	public:
+		//@brief	データ構造体
+		struct BufferData {
+			DirectX::XMMATRIX World_{};
+			DirectX::XMMATRIX Color_{};
+		};
 		//@brief	---  初期化関数  ---
 		void Initialize()noexcept override;
 
 		//@brief	---  UpDate()関数  ---
 		virtual void UpDate()noexcept override;
 
-
+		//@brief	---  描画指示設定  ---
+		virtual void SetDrawCommand(const CommandList& List, UINT slot)noexcept override;
 
 	private:
 		DirectX::XMMATRIX view_{};        /// ビュー行列

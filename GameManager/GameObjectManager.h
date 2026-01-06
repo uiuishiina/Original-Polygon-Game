@@ -42,6 +42,9 @@ namespace MyGame {
 
 		//@brief	---  描画指示関数  ---
 		void Draw(const CommandList& List)noexcept;
+
+		//@brief	---  ゲームオブジェクト取得関数  ---
+		[[nodiscard]] std::optional<GameObject*>  GetGameObject(UINT64 OBNum)const noexcept;
 	private:
 		GameObjectManager() = default;
 		~GameObjectManager() = default;

@@ -28,6 +28,7 @@
 //------  Object  ------
 #include"../Object/Camera.h"
 #include"../Object/Enemy.h"
+#include"../Object/Bullet.h"
 //------  名前空間  ------
 
 namespace {
@@ -68,7 +69,7 @@ public:
 			return false;
 		}
 		// 定数バッファ用ディスクリプタヒープの生成
-		if (!DHManager::Instance().Create(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 3, true)) {
+		if (!DHManager::Instance().Create(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 2, true)) {
 			assert(false && "定数バッファ用ディスクリプタヒープの作成に失敗しました");
 			return false;
 		}
@@ -135,8 +136,8 @@ public:
 			return false;
 		}
 		
-		//E_.Initialize();
 		MyGame::GameObjectManager::Instance().CreateGameObject<MyGame::CAMERA>();
+		
 		MyGame::GameObjectManager::Instance().CreateGameObject<Enemy>();
 
 		//アプリケーション作成完了
@@ -205,9 +206,6 @@ public:
 				// コンスタントバッファ用ディスクリプタヒープの設定
 				ID3D12DescriptorHeap * p[] = { DHManager::Instance().Get(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV) };
 				CommandList_.Get()->SetDescriptorHeaps(1, p);
-
-				/*E_.UpDate();
-				E_.SetDrawCommand(CommandList_, 0);*/
 
 				MyGame::GameObjectManager::Instance().Draw(CommandList_);
 
