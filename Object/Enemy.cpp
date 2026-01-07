@@ -34,7 +34,7 @@ void Enemy::UpDate()noexcept {
 	DirectX::XMVECTOR temp = DirectX::XMVectorSet(pos.x, pos.y, pos.z, 0.0f);
 	World_.r[3] = DirectX::XMVectorAdd(World_.r[3], temp);
 	
-	auto rad = DirectX::XMConvertToRadians(1);
+	auto rad = DirectX::XMConvertToRadians(0.5f);
 	auto mat = DirectX::XMMatrixRotationY(rad);
 	World_ = DirectX::XMMatrixMultiply(World_, mat);
 
