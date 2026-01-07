@@ -9,6 +9,12 @@
 class Polygon
 {
 public:
+	//@brief	---  頂点構造体  ---
+	struct Vertex {
+		DirectX::XMFLOAT3 Position;
+		DirectX::XMFLOAT4 Color;
+	};
+
 	Polygon() = default;
 	virtual ~Polygon() = default;
 
@@ -16,7 +22,7 @@ public:
 	[[nodiscard]] bool Create()noexcept;
 
 	//@brief	---  描画指示関数  ---
-	void Draw(const CommandList& List)noexcept;
+	virtual void Draw(const CommandList& List)noexcept;
 protected:
 
 	//@brief	---  頂点バッファ作成関数  ---

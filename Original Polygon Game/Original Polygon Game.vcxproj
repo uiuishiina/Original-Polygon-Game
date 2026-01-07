@@ -149,6 +149,7 @@
     <ClInclude Include="..\Polygon\Polygon.h" />
     <ClInclude Include="..\Polygon\Square.h" />
     <ClInclude Include="..\Polygon\Triangle.h" />
+    <ClInclude Include="..\Polygon\Square Pyramid.h" />
     <ClInclude Include="..\Window\Input.h" />
     <ClInclude Include="..\Window\Window.h" />
   </ItemGroup>
@@ -178,6 +179,7 @@
     <ClCompile Include="..\Polygon\Polygon.cpp" />
     <ClCompile Include="..\Polygon\Spuare.cpp" />
     <ClCompile Include="..\Polygon\Triangle.cpp" />
+    <ClCompile Include="..\Polygon\Square Pyramid.cpp" />
     <ClCompile Include="..\Window\Input.cpp" />
     <ClCompile Include="..\Window\Window.cpp" />
   </ItemGroup>

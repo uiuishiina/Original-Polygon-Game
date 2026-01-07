@@ -3,14 +3,6 @@
 #include"Triangle.h"
 #include<cassert>
 
-//名前空間
-namespace {
-	struct Vertex {
-		DirectX::XMFLOAT3 Position;
-		DirectX::XMFLOAT4 Color;
-	};
-}
-
 //@brief	---  頂点バッファ作成関数  ---
 [[nodiscard]] bool Triangle:: CreateVertexBuffer()noexcept {
 
@@ -18,8 +10,8 @@ namespace {
 	Vertex Vertex_[] = {
 		//頂点位置					//頂点色
 		{{	0.0f,	0.5f,	0.0f},{	1.0f,	1.0f,	1.0f,	1.0f}},
-		{{	0.5f,	-0.5f,	0.0f},{	1.0f,	1.0f,	1.0f,	1.0f}},
-		{{	-0.5f,	-0.5f,	0.0f},{	1.0f,	1.0f,	1.0f,	1.0f}},
+		{{	0.5f,	-0.5f,	0.5f},{	1.0f,	1.0f,	1.0f,	1.0f}},
+		{{	0.5f,	-0.5f,	-0.5f},{	1.0f,	1.0f,	1.0f,	1.0f}},
 	};
 
 	//頂点データサイズ

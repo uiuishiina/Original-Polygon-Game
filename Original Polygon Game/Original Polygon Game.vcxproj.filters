@@ -114,6 +114,9 @@
     <ClInclude Include="..\Window\Input.h">
       <Filter>Window</Filter>
     </ClInclude>
+    <ClInclude Include="..\Polygon\Square Pyramid.h">
+      <Filter>Polygon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Window\Window.cpp">
@@ -196,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="..\Window\Input.cpp">
       <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Polygon\Square Pyramid.cpp">
+      <Filter>Polygon</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
 #include"../GameManager/PolygonManager.h"
 #include"../Polygon/Triangle.h"
 #include"../Polygon/Square.h"
+#include"../Polygon/Square Pyramid.h"
 #include"../DirectX/ConstantBuffer.h"
 #include"../DirectX/CommandList.h"
 #include<DirectXMath.h>

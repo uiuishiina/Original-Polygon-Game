@@ -22,8 +22,6 @@
 
 //@brief	---  描画指示関数  ---
 void Polygon :: Draw(const CommandList& List)noexcept {
-
-	VertexBuffer_;
 	// 頂点バッファの設定
 	List.Get()->IASetVertexBuffers(0, 1, &VertexView_);
 	// インデックスバッファの設定
