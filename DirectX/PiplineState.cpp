@@ -43,7 +43,7 @@
 	//ラスタライザステート設定
 	D3D12_RASTERIZER_DESC Rdesc{};
 	Rdesc.FillMode				= D3D12_FILL_MODE_SOLID;
-	Rdesc.CullMode				= D3D12_CULL_MODE_NONE;
+	Rdesc.CullMode				= D3D12_CULL_MODE_BACK;
 	Rdesc.FrontCounterClockwise = false;
 	Rdesc.DepthBias				= D3D12_DEFAULT_DEPTH_BIAS;
 	Rdesc.DepthBiasClamp		= D3D12_DEFAULT_DEPTH_BIAS_CLAMP;

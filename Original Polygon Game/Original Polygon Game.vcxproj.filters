@@ -31,6 +31,9 @@
     <Filter Include="GameManager">
       <UniqueIdentifier>{d942a850-e29b-490e-ab83-c60704ad1849}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{8c3a425d-1075-4f04-8dc3-b8f5abd79ff3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Window\Window.h">
@@ -117,6 +120,21 @@
     <ClInclude Include="..\Polygon\Square Pyramid.h">
       <Filter>Polygon</Filter>
     </ClInclude>
+    <ClInclude Include="..\Polygon\Cube.h">
+      <Filter>Polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Polygon\OutLineCube.h">
+      <Filter>Polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Object\Player.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Component\Collision.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Component\Component.h">
+      <Filter>Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Window\Window.cpp">
@@ -202,6 +220,18 @@
     </ClCompile>
     <ClCompile Include="..\Polygon\Square Pyramid.cpp">
       <Filter>Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Polygon\Cube.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Polygon\OutLineCube.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Object\Player.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Component\Collision.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

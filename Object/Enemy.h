@@ -13,4 +13,7 @@ public:
 
 	//@brief	---  •`‰æw¦İ’è  ---
 	virtual void SetDrawCommand(const CommandList& List, UINT slot)noexcept override;
+
+	//@brief	---  Õ“Ëˆ—ŠÖ”  ---
+	void OnHit()noexcept override;
 };

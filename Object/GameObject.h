@@ -5,6 +5,10 @@
 #include"../Polygon/Triangle.h"
 #include"../Polygon/Square.h"
 #include"../Polygon/Square Pyramid.h"
+#include"../Polygon/Cube.h"
+#include"../Polygon/OutLineCube.h"
+#include"../Component/Collision.h"
+
 #include"../DirectX/ConstantBuffer.h"
 #include"../DirectX/CommandList.h"
 #include<DirectXMath.h>
@@ -33,7 +37,7 @@ public:
 
 	//@brief	---  コンスタントバッファ作成関数  ---
 	//@return	コンスタントバッファの作成可否
-	virtual [[nodiscard]] bool CreateConstantBuffer()noexcept;
+	virtual void CreateConstantBuffer()noexcept;
 
 	//@brief	---  描画指示設定  ---
 	virtual void SetDrawCommand(const CommandList& List, UINT slot)noexcept;
@@ -51,6 +55,12 @@ public:
 
 	//@brief	---  個別識別子設定関数  ---
 	void SetMyHandle(UINT64 ID)noexcept;
+
+	//@brief	---  親セット関数  ---
+	void SetParent(UINT64 ID)noexcept;
+
+	//@brief	---  衝突時処理関数  ---
+	virtual void OnHit()noexcept {};
 
 //------  参照関数群  ------
 
@@ -74,6 +84,9 @@ public:
 	//@return	あたり範囲
 	[[nodiscard]] float GetRadius()const noexcept;
 
+	//@brief	---  衝突相手取得関数  ---
+	virtual [[nodiscard]] UINT64 HitClassHandle()noexcept { return{}; };
+
 //------  
 
 protected:
@@ -95,6 +108,7 @@ protected:
 	UINT64				PolygonID_{};							//ポリゴン識別子
 	UINT64				MyHandle_{};							//個別識別子
 	UINT64				ClassID_{};								//クラス識別子
+	UINT64				Parent_{};								//クラス識別子
 	float				Radius_{};								//あたり範囲
 	float				Move_{};								//移動速度
 };

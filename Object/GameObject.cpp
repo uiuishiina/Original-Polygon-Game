@@ -43,13 +43,11 @@ void GameObject :: SetData(DirectX::XMFLOAT3 pos, DirectX::XMFLOAT3 rotate, Dire
 
 //@brief	---  コンスタントバッファ作成関数  ---
 //@return	コンスタントバッファの作成可否
-[[nodiscard]] bool GameObject :: CreateConstantBuffer()noexcept {
+void GameObject :: CreateConstantBuffer()noexcept {
 	//コンスタントバッファ作成
 	if (!MyBuffer_.Create(sizeof(BufferData))) {
 		assert(false && "コンスタントバッファ作成失敗");
-		return false;
 	}
-	return true;
 }
 
 //@brief	---  クラス識別子設定関数  ---
@@ -60,6 +58,11 @@ void GameObject :: SetClassID(UINT64 ID)noexcept {
 //@brief	---  個別識別子設定関数  ---
 void GameObject :: SetMyHandle(UINT64 ID)noexcept {
 	MyHandle_ = ID;
+}
+
+//@brief	---  親セット関数  ---
+void GameObject :: SetParent(UINT64 ID)noexcept {
+	Parent_ = ID;
 }
 
 //@brief	---  ワールド行列取得関数  ---

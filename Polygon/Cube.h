@@ -1,14 +1,14 @@
 #pragma once
-//------  Triangle.h  ------
+//------  Cube.h  ------
 //------  参照  ------
 #include"Polygon.h"
 
-//@brief	------  三角形ポリゴン描画クラス  ------
-class Triangle final:public Polygon
+//@brief	------  立方体ポリゴン描画クラス  ------
+class Cube final:public Polygon
 {
 public:
-	Triangle() = default;
-	~Triangle() = default;
+	Cube() = default;
+	~Cube() = default;
 
 private:
 	//@brief	---  頂点バッファ作成関数  ---

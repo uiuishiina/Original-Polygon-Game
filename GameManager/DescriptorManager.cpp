@@ -32,7 +32,9 @@ DHManager :: ~DHManager() {
 		assert(false && "ディスクリプタヒープ取得失敗(タイプ)");
 	}
 	const auto value = it->second->AllocateDescriptor();
-	assert(value.has_value() && "ディスクリプタヒープ取得失敗(番号)");
+	if (!value.has_value()) {
+		assert(false && "ディスクリプタヒープ取得失敗(番号)");
+	}
 
 	return value.value();
 }

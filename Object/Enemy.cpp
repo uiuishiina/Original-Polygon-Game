@@ -7,7 +7,7 @@ float y = -10;
 
 void Enemy::Initialize()noexcept {
 	GameObject::Initialize();
-	PolygonID_ = PolygonManager::Instance().Create<SquarePyramid>();//Square//Triangle//SquarePyramid
+	PolygonID_ = PolygonManager::Instance().Create<SquarePyramid>();//Square//Triangle//SquarePyramid//Cube//OutlineCube
 	SetData({ 0.0f,0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f, 1.0f }, { 1.0f, 0.0, 0.0f, 1 }, PolygonID_);
 }
 
@@ -45,4 +45,9 @@ void Enemy::UpDate()noexcept {
 void Enemy :: SetDrawCommand(const CommandList& List, UINT slot)noexcept {
 	GameObject::SetDrawCommand(List,slot);
 	PolygonManager::Instance().Draw(List, PolygonID_);
+}
+
+//@brief	---  Õ“Ëˆ—ŠÖ”  ---
+void Enemy :: OnHit()noexcept {
+
 }

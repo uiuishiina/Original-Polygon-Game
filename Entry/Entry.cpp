@@ -29,6 +29,7 @@
 #include"../Object/Camera.h"
 #include"../Object/Enemy.h"
 #include"../Object/Bullet.h"
+#include"../Object/Player.h"
 //------  名前空間  ------
 
 namespace {
@@ -69,7 +70,7 @@ public:
 			return false;
 		}
 		// 定数バッファ用ディスクリプタヒープの生成
-		if (!DHManager::Instance().Create(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 3, true)) {
+		if (!DHManager::Instance().Create(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 5, true)) {
 			assert(false && "定数バッファ用ディスクリプタヒープの作成に失敗しました");
 			return false;
 		}
@@ -138,9 +139,7 @@ public:
 		
 		MyGame::GameObjectManager::Instance().CreateGameObject<MyGame::CAMERA>();
 		
-		MyGame::GameObjectManager::Instance().CreateGameObject<Enemy>();
-
-		MyGame::GameObjectManager::Instance().CreateGameObject<Bullet>();
+		MyGame::GameObjectManager::Instance().CreateGameObject<Player>();
 
 		//アプリケーション作成完了
 		return true;

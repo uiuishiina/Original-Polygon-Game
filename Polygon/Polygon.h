@@ -33,10 +33,13 @@ protected:
 
 protected://------  ポリゴン変数  ------
 
+	//------  関数内で設定  ------
 	Microsoft::WRL::ComPtr <ID3D12Resource> VertexBuffer_{};	//頂点バッファ
 	Microsoft::WRL::ComPtr <ID3D12Resource> IndexBuffer_{};		//インデックスバッファ
 	D3D12_VERTEX_BUFFER_VIEW	VertexView_{};		//頂点バッファビュー
 	D3D12_INDEX_BUFFER_VIEW		IndexView_{};		//インデックスバッファビュー
-	D3D_PRIMITIVE_TOPOLOGY		Topology_{};		//トポロジー(描画方法)
 	UINT						IndexCount_{};		//インデックスカウント
+
+	//------  派生クラスごとに設定  ------
+	D3D_PRIMITIVE_TOPOLOGY		Topology_{};		//トポロジー(描画方法)
 };
