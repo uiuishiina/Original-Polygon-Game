@@ -53,3 +53,20 @@
 	FreeID_.pop_back();
 	return index;
 }
+
+//@brief	---  ディスクリプターヒープ解放登録関数  ---
+void DescriptorHeap :: ReleaseDescriptor(UINT Index) noexcept {
+	ApplyPendingID_.push_back(Index);
+}
+
+//@brief	---  ディスクリプターヒープ解放関数  ---
+void DescriptorHeap :: ApplyPending()noexcept {
+	if(ApplyPendingID_.empty()) {
+		return;
+	}
+
+	for (auto i : ApplyPendingID_) {
+		FreeID_.push_back(i);
+	}
+	ApplyPendingID_.clear();
+}

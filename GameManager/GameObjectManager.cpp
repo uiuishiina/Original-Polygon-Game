@@ -43,35 +43,50 @@ namespace MyGame {
 	void GameObjectManager::LateUpDate()noexcept {
 		if (!Hit_.empty()) {
 			for (auto handle : Hit_) {
-				if (GameObjects_.find(handle) != GameObjects_.end()) {
+				//Hitがあるか
+				if (GameObjects_.find(handle) == GameObjects_.end()) {
 					continue;
 				}
+				
 				const auto value = GameObjects_.find(handle);
+				if (GameObjects_.find(value->second->HitClassHandle()) == GameObjects_.end()) {
+					continue;
+				}
+				const auto it = GameObjects_.find(value->second->HitClassHandle());
 				auto myPos = value->second->GetWorld().r[3];
-				for (auto& it : GameObjects_) {
-					if (it.first == handle || it.second->GetMyHandle() != value->second->HitClassHandle()) {
-						continue;
-					}
-					auto hitRadius = value->second->GetRadius() + it.second->GetRadius();
-					auto targetPos = it.second->GetWorld().r[3];
-					auto distance = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(myPos, targetPos)));
-					if (distance < hitRadius) {
-						value->second->OnHit();
-						it.second->OnHit();
-					}
+
+				auto hitRadius = value->second->GetRadius() + it->second->GetRadius();
+				auto targetPos = it->second->GetWorld().r[3];
+				auto distance = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(myPos, targetPos)));
+				if (distance < hitRadius) {
+					value->second->OnHit();
+					it->second->OnHit();
 				}
 			}
+			Hit_.clear();
 		}
 
+		if (!DeleteHand_.empty()) {
+			for (auto i : DeleteHand_) {
+				auto it = GameObjects_.find(i);
+				if (it == GameObjects_.end()) {
+					continue;
+				}
+				Delete_.emplace_back(std::move(it->second), 10);
+				GameObjects_.erase(it);
+			}
+			DeleteHand_.clear();
+		}
 
 		// オブジェクト削除処理
 		if (!Delete_.empty()) {
-			for (auto d = Delete_.begin(); d != Delete_.end();) {
-				if ((d->second--) > 0) {
-					++d;
+			auto count = 0;
+			for (auto& d : Delete_) {
+				if ((d.second--) > 0) {
+					count++;
 					continue;
 				}
-				d = Delete_.erase(d);
+				Delete_.erase(Delete_.begin() + count);
 			}
 		}
 	}
@@ -83,6 +98,9 @@ namespace MyGame {
 	//@brief	---  描画指示関数  ---
 	void GameObjectManager::Draw(const CommandList& List)noexcept {
 		for (auto& it : GameObjects_) {
+			if (!Delete_.empty()) {
+				Delete_;
+			}
 			it.second->SetDrawCommand(List,1);
 		}
 	}
@@ -101,8 +119,11 @@ namespace MyGame {
 	[[nodiscard]] void GameObjectManager :: DeleteGameObject(const UINT64 handle)noexcept{
 		auto it = GameObjects_.find(handle);
 		if (it == GameObjects_.end()) { return; }
+		//Delete_.emplace_back(std::move(it->second), 10);//std::move(
+		DeleteHand_.emplace_back(handle);
+	}
+	//@brief	---  ゲームオブジェクト削除登録関数  ---
+	[[nodiscard]] void GameObjectManager :: SetDeleteHandle(const UINT64 handle)noexcept {
 		
-		Delete_.emplace_back(std::move(it->second), 10);
-		GameObjects_.erase(it);
 	}
 }

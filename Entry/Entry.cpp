@@ -139,8 +139,9 @@ public:
 		
 		MyGame::GameObjectManager::Instance().CreateGameObject<MyGame::CAMERA>();
 		
+		
+		MyGame::GameObjectManager::Instance().CreateGameObject<Enemy>();
 		MyGame::GameObjectManager::Instance().CreateGameObject<Player>();
-
 		//アプリケーション作成完了
 		return true;
 	}
@@ -151,6 +152,9 @@ public:
 
 			MyGame::GameObjectManager::Instance().UpDate();
 
+			MyGame::GameObjectManager::Instance().LateUpDate();
+
+			DHManager::Instance().ApplyPending();
 			//現在のバッファインデックスを取得
 			const auto BufferIndex = SwapChain_.Get()->GetCurrentBackBufferIndex();
 			//処理が終了していないなら待機

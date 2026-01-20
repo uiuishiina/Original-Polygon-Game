@@ -66,6 +66,8 @@ namespace MyGame {
 		//@brief	---  ゲームオブジェクト削除関数  ---
 		[[nodiscard]] void DeleteGameObject(const UINT64 handle)noexcept;
 
+		
+
 		//@brief	---  コンポーネント作成関数  ---
 		template <typename T>
 		void AddComponent()noexcept {
@@ -93,11 +95,15 @@ namespace MyGame {
 		GameObjectManager() = default;
 		~GameObjectManager() = default;
 
+		//@brief	---  ゲームオブジェクト削除登録関数  ---
+		[[nodiscard]] void SetDeleteHandle(const UINT64 handle)noexcept;
+
 		std::unordered_map<UINT64, std::unique_ptr<Component>> Component_{};//コンポーネント
 		std::vector<std::pair<UINT64, std::function<std::unique_ptr<GameObject>()>>> Creation_{};  /// 生成関数
 		std::unordered_map<UINT64, std::unique_ptr<GameObject>>                      GameObjects_{};   /// ゲームオブジェクト
 		std::vector<std::pair<std::unique_ptr<GameObject>, int>>                     Delete_{};    /// 削除オブジェクトハンドル
 		std::vector<UINT64>	Hit_{};
+		std::vector<UINT64>	DeleteHand_{};
 		UINT64	Index_ = 0;
 	};
 }

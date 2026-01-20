@@ -49,3 +49,20 @@ DHManager :: ~DHManager() {
 	}
 	return it->second->GetHeap();
 }
+
+//@brief	---  ディスクリプターヒープ解放登録関数  ---
+void DHManager :: ReleaseDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE type, UINT Index) noexcept {
+	const auto it = Map_.find(type);
+	if (it == Map_.end()) {
+		assert(false && "ディスクリプタヒープがありません");
+	}
+
+	return it->second->ReleaseDescriptor(Index);
+}
+
+//@brief	---  ディスクリプターヒープ解放関数  ---
+void DHManager :: ApplyPending()noexcept {
+	for (auto& [key, p] : Map_) {
+		p->ApplyPending();
+	}
+}

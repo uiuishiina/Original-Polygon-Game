@@ -37,11 +37,11 @@
     );
     if(FAILED(hr)) {
         assert(false && "コンスタントバッファ作成失敗");
-        return false;
+        /*return false;*/
     }
 
     //ビュー作成
-    auto Index = DHManager::Instance().AllocateDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+    Index_ = DHManager::Instance().AllocateDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
     auto heap = DHManager::Instance().Get(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
     //コンスタントバッファビュー設定
@@ -54,12 +54,12 @@
     //ディスクリプターヒープ先頭アドレス取得
     auto CPUHandle = heap->GetCPUDescriptorHandleForHeapStart();
     //アドレスを指定分移動
-    CPUHandle.ptr += Index * Descriptorsize;
+    CPUHandle.ptr += Index_ * Descriptorsize;
     //コンスタントバッファビューとディスクリプターヒープを紐づけ
     Device::Instance().Get()->CreateConstantBufferView(&Desc, CPUHandle);
     //ディスクリプタハンドル保存
     GPUHandle_ = heap->GetGPUDescriptorHandleForHeapStart();
-    GPUHandle_.ptr += Index * Descriptorsize;
+    GPUHandle_.ptr += Index_ * Descriptorsize;
 
     return true;
 }

@@ -27,9 +27,16 @@ public:
 	//@brief	---  ディスクリプターヒープ確保関数  ---
 	//@return	確保したディスクリプターヒープの番号
 	[[nodiscard]] std::optional<UINT> AllocateDescriptor() noexcept;
+
+	//@brief	---  ディスクリプターヒープ解放登録関数  ---
+	void ReleaseDescriptor(UINT Index) noexcept;
+
+	//@brief	---  ディスクリプターヒープ解放関数  ---
+	void ApplyPending()noexcept;
 private:
 	Microsoft::WRL::ComPtr <ID3D12DescriptorHeap>		Heap_{};	//	ディスクリプターヒープ
 	D3D12_DESCRIPTOR_HEAP_TYPE							Type_{};	//	ディスクリプターヒープタイプ
 	std::vector<UINT>									FreeID_{};	//	ディスクリプターヒープ番号
 	std::vector<UINT>									DeleteID_{};//	ディスクリプターヒープ番号
+	std::vector<UINT>									ApplyPendingID_{};//	ディスクリプターヒープ番号
 };

@@ -11,7 +11,9 @@ class ConstantBuffer final
 {
 public:
 	ConstantBuffer() = default;
-	~ConstantBuffer() = default;
+	~ConstantBuffer() {
+		DHManager::Instance().ReleaseDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, Index_);
+	}
 
 	//@brief	---  コンスタントバッファ作成関数  ---
 	//@param	ディスクリプターヒープ
@@ -30,4 +32,5 @@ public:
 private:
 	Microsoft::WRL::ComPtr <ID3D12Resource> ConstantBuffer_{};	//コンスタントバッファ
 	D3D12_GPU_DESCRIPTOR_HANDLE				GPUHandle_{};		//GPUハンドル
+	UINT Index_;
 };

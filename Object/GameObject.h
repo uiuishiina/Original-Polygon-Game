@@ -21,6 +21,7 @@ public:
 	//@brief	データ構造体
 	struct BufferData {
 		DirectX::XMMATRIX World_{};
+		//DirectX::XMMATRIX Rotate_{};
 		DirectX::XMFLOAT4 Color_{};
 	};
 
@@ -103,6 +104,8 @@ protected:
 
 protected:
 	DirectX::XMMATRIX	World_ = DirectX::XMMatrixIdentity();	//ワールド行列
+	DirectX::XMMATRIX	Rotate_ = DirectX::XMMatrixIdentity();	//Rotate行列
+	DirectX::XMMATRIX	Scale = DirectX::XMMatrixIdentity();	//Scale行列
 	DirectX::XMFLOAT4	Color_ = DirectX::XMFLOAT4(1, 1, 1, 1);	//カラー
 	ConstantBuffer		MyBuffer_{};							//コンスタントバッファ
 	UINT64				PolygonID_{};							//ポリゴン識別子

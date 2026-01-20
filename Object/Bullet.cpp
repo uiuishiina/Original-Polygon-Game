@@ -2,11 +2,13 @@
 //------  参照  ------
 #include"Bullet.h"
 float movedle = 0.0f;
+float Brat = 0;
 
 void Bullet::Initialize()noexcept {
 	GameObject::Initialize();
-	PolygonID_ = PolygonManager::Instance().Create<Square>();//Square//Triangle
+	PolygonID_ = PolygonManager::Instance().Create<Cube>();//Square//Triangle//Cube
 	DirectX::XMFLOAT3 parentPos{};
+	movedle = 0.0f;
 	if (auto parent = MyGame::GameObjectManager::Instance().GetGameObject(Parent_)) {
 		DirectX::XMStoreFloat3(&parentPos, parent.value()->GetWorld().r[3]);
 	}
@@ -15,11 +17,41 @@ void Bullet::Initialize()noexcept {
 
 void Bullet::UpDate()noexcept {
 	constexpr float moveSpeed = 0.3f;
-	DirectX::XMFLOAT3 pos{};
-	pos.z += moveSpeed;
+	
+	//------  ポジション取得  ------
+	DirectX::XMFLOAT4X4 f4x4 = {};
+	DirectX::XMStoreFloat4x4(&f4x4, World_);//DirectX::XMMatrixIdentity()
+
+	//------  移動  ------
+	f4x4._43 += moveSpeed;
 	movedle += moveSpeed;
-	// ワールド行列の更新
-	World_ = DirectX::XMMatrixMultiply(World_, DirectX::XMMatrixTranslation(pos.x, pos.y, pos.z));
+
+	World_ = DirectX::XMMatrixMultiply(World_, DirectX::XMMatrixTranslation(f4x4._41, f4x4._42, f4x4._43));
+
+	//--------------------
+
+	//------  回転  ------
+	Brat += 0.5f;
+	auto rad = DirectX::XMConvertToRadians(Brat);
+	auto mat = DirectX::XMMatrixRotationZ(rad);
+
+	DirectX::XMVECTOR Centor = DirectX::XMVectorSet(f4x4._41, f4x4._42, f4x4._43, 0);
+	DirectX::XMVECTOR Origin = DirectX::XMVectorSet(0, 0, 0, 0);
+
+	DirectX::XMMATRIX CtoO = DirectX::XMMatrixTranslationFromVector(Origin);
+	DirectX::XMMATRIX OtoC = DirectX::XMMatrixTranslationFromVector(Centor);
+
+	//--------------------
+
+	//------  行列計算  ------
+	World_ = Scale * CtoO * mat * OtoC;
+
+	//削除用
+	if (movedle > 100)
+	{
+		MyGame::GameObjectManager::Instance().DeleteGameObject(GetMyHandle());
+		return;
+	}
 	GameObject::UpDate();
 	MyGame::GameObjectManager::Instance().SetHit(GetMyHandle());
 }

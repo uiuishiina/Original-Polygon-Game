@@ -17,7 +17,7 @@ void GameObject :: SetDrawCommand(const CommandList& List, UINT slot)noexcept {
 
 //@brief	---  UpDate()関数  ---
 void GameObject :: UpDate()noexcept {
-	UpDateConstantBuffer(BufferData{ DirectX::XMMatrixTranspose(World_), Color_ });
+	UpDateConstantBuffer(BufferData{ DirectX::XMMatrixTranspose(World_) ,Color_ });//,Rotate_
 }
 //@brief	---  オブジェクトデータ設定関数  ---
 	//@param	ポジション
@@ -27,10 +27,10 @@ void GameObject :: UpDate()noexcept {
 	//@param	ポリゴン識別子
 void GameObject :: SetData(DirectX::XMFLOAT3 pos, DirectX::XMFLOAT3 rotate, DirectX::XMFLOAT3 scale, DirectX::XMFLOAT4 color, UINT64 ID)noexcept {
 	// ワールド行列の計算
-	DirectX::XMMATRIX matScale = DirectX::XMMatrixScaling(scale.x, scale.y, scale.z);
-	DirectX::XMMATRIX rotation = DirectX::XMMatrixRotationRollPitchYaw(rotate.x, rotate.y, rotate.z);
+	Scale = DirectX::XMMatrixScaling(scale.x, scale.y, scale.z);
+	Rotate_ = DirectX::XMMatrixRotationRollPitchYaw(rotate.x, rotate.y, rotate.z);
 	DirectX::XMMATRIX translation = DirectX::XMMatrixTranslation(pos.x, pos.y, pos.z);
-	World_ = matScale * rotation * translation;
+	World_ = Scale * Rotate_ * translation;
 
 	// カラーの設定
 	Color_ = color;

@@ -29,6 +29,11 @@ public:
 	//@return	ディスクリプターヒープアドレス
 	[[nodiscard]] ID3D12DescriptorHeap* Get(D3D12_DESCRIPTOR_HEAP_TYPE type) const noexcept;
 
+	//@brief	---  ディスクリプターヒープ解放登録関数  ---
+	void ReleaseDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE type, UINT Index) noexcept;
+
+	//@brief	---  ディスクリプターヒープ解放関数  ---
+	void ApplyPending()noexcept;
 private:
 	DHManager() = default;
 	~DHManager();
