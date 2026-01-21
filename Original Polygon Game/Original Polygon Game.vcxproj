@@ -150,6 +150,7 @@
     <ClInclude Include="..\Object\GameObject.h" />
     <ClInclude Include="..\Object\Player.h" />
     <ClInclude Include="..\Polygon\Cube.h" />
+    <ClInclude Include="..\Polygon\Hexagonal.h" />
     <ClInclude Include="..\Polygon\OutLineCube.h" />
     <ClInclude Include="..\Polygon\Polygon.h" />
     <ClInclude Include="..\Polygon\Square.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="..\Object\GameObject.cpp" />
     <ClCompile Include="..\Object\Player.cpp" />
     <ClCompile Include="..\Polygon\Cube.cpp" />
+    <ClCompile Include="..\Polygon\Hexagonal.cpp" />
     <ClCompile Include="..\Polygon\OutLineCube.cpp" />
     <ClCompile Include="..\Polygon\Polygon.cpp" />
     <ClCompile Include="..\Polygon\Spuare.cpp" />

@@ -6,7 +6,7 @@
 
 void Player :: Initialize()noexcept {
 	GameObject::Initialize();
-	PolygonID_ = PolygonManager::Instance().Create<Triangle>();//Square//Triangle//SquarePyramid//Cube//OutlineCube
+	PolygonID_ = PolygonManager::Instance().Create<Square>();//Square//Triangle//SquarePyramid//Cube//OutlineCube
 	SetData({ 0.0f,0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f, 1.0f }, { 0.0f, 1.0, 0.0f, 1 }, PolygonID_);
 	//MyGame::GameObjectManager::Instance().AddComponent<Collision>();
 }

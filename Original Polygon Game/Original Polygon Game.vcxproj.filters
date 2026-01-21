@@ -135,6 +135,9 @@
     <ClInclude Include="..\Component\Component.h">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="..\Polygon\Hexagonal.h">
+      <Filter>Polygon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Window\Window.cpp">
@@ -232,6 +235,9 @@
     </ClCompile>
     <ClCompile Include="..\Component\Collision.cpp">
       <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Polygon\Hexagonal.cpp">
+      <Filter>Polygon</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
