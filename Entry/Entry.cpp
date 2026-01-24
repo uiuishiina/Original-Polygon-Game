@@ -139,7 +139,6 @@ public:
 		
 		MyGame::GameObjectManager::Instance().CreateGameObject<MyGame::CAMERA>();
 		
-		
 		MyGame::GameObjectManager::Instance().CreateGameObject<Enemy>();
 		MyGame::GameObjectManager::Instance().CreateGameObject<Player>();
 		//アプリケーション作成完了

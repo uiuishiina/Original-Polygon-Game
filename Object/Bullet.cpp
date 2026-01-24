@@ -6,7 +6,7 @@ float Brat = 0;
 
 void Bullet::Initialize()noexcept {
 	GameObject::Initialize();
-	PolygonID_ = PolygonManager::Instance().Create<Cube>();//Square//Triangle//Cube
+	PolygonID_ = PolygonManager::Instance().Create<Square>();//Square//Triangle//Cube
 	DirectX::XMFLOAT3 parentPos{};
 	movedle = 0.0f;
 	if (auto parent = MyGame::GameObjectManager::Instance().GetGameObject(Parent_)) {
